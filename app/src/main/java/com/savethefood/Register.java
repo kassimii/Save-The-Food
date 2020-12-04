@@ -17,13 +17,18 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 public class Register extends AppCompatActivity {
-    EditText EName, ELocation, EEmail, EPassword;
-    Button BRegister;
-    TextView TLoginBtn;
-    FirebaseAuth fAuth;
-    ProgressBar progressBar;
+    private EditText EName, ELocation, EEmail, EPassword;
+    private Button BRegister;
+    private TextView TLoginBtn;
+    private FirebaseAuth fAuth;
+    private ProgressBar progressBar;
+
+    private String userUID;
+    private DatabaseReference databaseRef;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,6 +64,8 @@ public class Register extends AppCompatActivity {
             public void onClick(View v) {
                 String email = EEmail.getText().toString().trim();
                 String password = EPassword.getText().toString().trim();
+                final String name = EName.getText().toString();
+                final String location = ELocation.getText().toString();
 
                 if(TextUtils.isEmpty(email)){
                     EEmail.setError("Email is required");
@@ -81,6 +88,10 @@ public class Register extends AppCompatActivity {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if(task.isSuccessful()) {
+                            userUID = fAuth.getCurrentUser().getUid();
+                            databaseRef = FirebaseDatabase.getInstance().getReference().child("Users").child(userUID);
+                            databaseRef.child("Name").setValue(name);
+                            databaseRef.child("Location").setValue(location);
                             Toast.makeText(Register.this, "User created", Toast.LENGTH_SHORT).show();
                             startActivity(new Intent(getApplicationContext(), MainActivity.class));
                         }else{
