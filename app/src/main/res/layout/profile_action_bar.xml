@@ -9,9 +9,34 @@
         android:layout_height="?attr/actionBarSize"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         android:background="@color/colorPrimaryMid"
-        app:title="Home"
+        app:title="Profile"
         android:id="@+id/profile_action_bar"
         android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
     </androidx.appcompat.widget.Toolbar>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_alignParentEnd="true"
+        android:paddingVertical="15dp"
+        android:paddingRight="10dp"
+        android:onClick="logout">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Logout"
+            android:paddingHorizontal="5dp"
+            />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_logout"
+            />
+    </LinearLayout>
+
+
 
 </RelativeLayout>

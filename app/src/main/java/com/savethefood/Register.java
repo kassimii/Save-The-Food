@@ -21,7 +21,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 public class Register extends AppCompatActivity {
-    private EditText EName, ELocation, EEmail, EPassword;
+    private EditText EName, EEmail, EPassword;
     private Button BRegister;
     private TextView TLoginBtn;
     private FirebaseAuth fAuth;
@@ -48,7 +48,6 @@ public class Register extends AppCompatActivity {
 
     public void initializeComponents(){
         EName = (EditText)findViewById(R.id.ENameRegister);
-        ELocation = (EditText)findViewById(R.id.ELocationRegister);
         EEmail = (EditText)findViewById(R.id.EEmailRegister);
         EPassword = (EditText)findViewById(R.id.EPasswordRegister);
         BRegister = (Button)findViewById(R.id.BRegister);
@@ -65,7 +64,6 @@ public class Register extends AppCompatActivity {
                 String email = EEmail.getText().toString().trim();
                 String password = EPassword.getText().toString().trim();
                 final String name = EName.getText().toString();
-                final String location = ELocation.getText().toString();
 
                 if(TextUtils.isEmpty(email)){
                     EEmail.setError("Email is required");
@@ -91,7 +89,6 @@ public class Register extends AppCompatActivity {
                             userUID = fAuth.getCurrentUser().getUid();
                             databaseRef = FirebaseDatabase.getInstance().getReference().child("Users").child(userUID);
                             databaseRef.child("Name").setValue(name);
-                            databaseRef.child("Location").setValue(location);
                             Toast.makeText(Register.this, "User created", Toast.LENGTH_SHORT).show();
                             startActivity(new Intent(getApplicationContext(), MainActivity.class));
                         }else{
