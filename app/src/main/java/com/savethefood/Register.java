@@ -21,6 +21,7 @@ import android.widget.Toast;
 
 
 import com.google.android.gms.location.FusedLocationProviderClient;
+import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -52,6 +53,7 @@ public class Register extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
+        fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this);
 
         initializeComponents();
 
@@ -62,6 +64,7 @@ public class Register extends AppCompatActivity {
 
         onRegisterButtonClick();
         onLoginTextClick();
+
     }
 
     public void initializeComponents(){
@@ -73,6 +76,7 @@ public class Register extends AppCompatActivity {
         progressBar = findViewById(R.id.progressBarRegister);
 
         fAuth = FirebaseAuth.getInstance();
+
     }
 
     public void onRegisterButtonClick(){
@@ -107,8 +111,12 @@ public class Register extends AppCompatActivity {
                             userUID = fAuth.getCurrentUser().getUid();
                             databaseRef = FirebaseDatabase.getInstance().getReference().child("Users").child(userUID);
                             databaseRef.child("Name").setValue(name);
-                            Toast.makeText(Register.this, "User created", Toast.LENGTH_SHORT).show();
                             getCoordinates();
+                            databaseRef.child("Location").child("Latitude").setValue(latitude);
+                            databaseRef.child("Location").child("Longitude").setValue(longitude);
+
+                            Toast.makeText(Register.this, "User created", Toast.LENGTH_SHORT).show();
+
                             startActivity(new Intent(getApplicationContext(), MainActivity.class));
                             finish();
                         }else{
@@ -139,7 +147,7 @@ public class Register extends AppCompatActivity {
         } else {
             //when permission is denied
             ActivityCompat.requestPermissions(Register.this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 44);
-            ;
+
         }
     }
 
@@ -172,7 +180,6 @@ public class Register extends AppCompatActivity {
 
                         latitude=addresses.get(0).getLatitude();
                         longitude=addresses.get(0).getLongitude();
-
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
