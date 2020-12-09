@@ -89,7 +89,6 @@ public class Register extends AppCompatActivity {
         typeOfUserSpinner = findViewById(R.id.typeOfUserSpinner);
 
         fAuth = FirebaseAuth.getInstance();
-
     }
 
     public void setTypeOfUserList(){
@@ -138,14 +137,20 @@ public class Register extends AppCompatActivity {
                             databaseRef.child("Name").setValue(name);
                             databaseRef.child("Type").setValue(typeOfUser);
                             Toast.makeText(Register.this, "User created", Toast.LENGTH_SHORT).show();
-                            getCoordinates();
-                            databaseRef.child("Location").child("Latitude").setValue(latitude);
-                            databaseRef.child("Location").child("Longitude").setValue(longitude);
+//                            getCoordinates();
+//                            databaseRef.child("Location").child("Latitude").setValue(latitude);
+//                            databaseRef.child("Location").child("Longitude").setValue(longitude);
 
-                            Toast.makeText(Register.this, "User created", Toast.LENGTH_SHORT).show();
+                            if(typeOfUser.equals("restaurant")){
+                                startActivity(new Intent(getApplicationContext(), MainActivity.class));
+                                finish();
+                            }
 
-                            startActivity(new Intent(getApplicationContext(), MainActivity.class));
-                            finish();
+                            if(typeOfUser.equals("organisation")){
+                                startActivity(new Intent(getApplicationContext(), CharitableOrganisation.class));
+                                finish();
+                            }
+
                         }else{
                             Toast.makeText(Register.this, "Error! " + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
                             progressBar.setVisibility(View.INVISIBLE);
@@ -156,59 +161,63 @@ public class Register extends AppCompatActivity {
         });
     }
 
-    public void chooseTypeOfUser(){
-        typeOfUserAdapter = new ArrayAdapter<String>(this, R.layout.style_spinner,typeOfUserList);
+    public void chooseTypeOfUser() {
+        typeOfUserAdapter = new ArrayAdapter<String>(this, R.layout.style_spinner, typeOfUserList);
         typeOfUserSpinner.setAdapter(typeOfUserAdapter);
         typeOfUserAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
         typeOfUserSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                if(position==1){
+                if (position == 1) {
                     typeOfUser = "restaurant";
                 }
-                if(position==2){
+                if (position == 2) {
                     typeOfUser = "organisation";
                 }
             }
 
-                      }
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+            }
         });
     }
 
-    public void getCoordinates() {
-        //check permission
-        if (ActivityCompat.checkSelfPermission(Register.this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
-            //when permission is granted
-            getLocation();
-        } else {
-            //when permission is denied
-            ActivityCompat.requestPermissions(Register.this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 44);
 
-        }
-    }
+//    public void getCoordinates() {
+//        //check permission
+//        if (ActivityCompat.checkSelfPermission(Register.this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
+//            //when permission is granted
+//            getLocation();
+//        } else {
+//            //when permission is denied
+//            ActivityCompat.requestPermissions(Register.this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 44);
+//        }
+//    }
 
-    private void getLocation() {
-        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            // TODO: Consider calling
-            //    ActivityCompat#requestPermissions
-            // here to request the missing permissions, and then overriding
-            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
-            //                                          int[] grantResults)
-            // to handle the case where the user grants the permission. See the documentation
-            // for ActivityCompat#requestPermissions for more details.
-            return;
-        }
-        fusedLocationProviderClient.getLastLocation().addOnCompleteListener(new OnCompleteListener<Location>() {
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-
-  
-                        latitude=addresses.get(0).getLatitude();
-                        longitude=addresses.get(0).getLongitude();
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
+//    private void getLocation() {
+//        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+//            // TODO: Consider calling
+//            //    ActivityCompat#requestPermissions
+//            // here to request the missing permissions, and then overriding
+//            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+//            //                                          int[] grantResults)
+//            // to handle the case where the user grants the permission. See the documentation
+//            // for ActivityCompat#requestPermissions for more details.
+//
+//            return;
+//        }
+//
+//        fusedLocationProviderClient.getLastLocation().addOnCompleteListener(new OnCompleteListener<Location>() {
+//            @Override
+//            public void onNothingSelected(AdapterView<?> parent) {
+//                latitude = addresses.get(0).getLatitude();
+//                longitude = addresses.get(0).getLongitude();
+//            } catch(IOException e)
+//            {
+//                e.printStackTrace();
+//            }
+//        });}
 
     public void onLoginTextClick(){
         TLoginBtn.setOnClickListener(new View.OnClickListener(){
@@ -219,7 +228,7 @@ public class Register extends AppCompatActivity {
             }
         });
     }
-//
+
 //    public void getCoordinates() {
 //        //check permission
 //        if (ActivityCompat.checkSelfPermission(Register.this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
