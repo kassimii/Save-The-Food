@@ -24,6 +24,7 @@ import android.widget.Toast;
 
 
 import com.google.android.gms.location.FusedLocationProviderClient;
+import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -62,6 +63,7 @@ public class Register extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
+        fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this);
 
         initializeComponents();
 
@@ -74,6 +76,7 @@ public class Register extends AppCompatActivity {
         chooseTypeOfUser();
         onRegisterButtonClick();
         onLoginTextClick();
+
     }
 
     public void initializeComponents(){
@@ -86,6 +89,7 @@ public class Register extends AppCompatActivity {
         typeOfUserSpinner = findViewById(R.id.typeOfUserSpinner);
 
         fAuth = FirebaseAuth.getInstance();
+
     }
 
     public void setTypeOfUserList(){
@@ -134,7 +138,12 @@ public class Register extends AppCompatActivity {
                             databaseRef.child("Name").setValue(name);
                             databaseRef.child("Type").setValue(typeOfUser);
                             Toast.makeText(Register.this, "User created", Toast.LENGTH_SHORT).show();
-                            //getCoordinates();
+                            getCoordinates();
+                            databaseRef.child("Location").child("Latitude").setValue(latitude);
+                            databaseRef.child("Location").child("Longitude").setValue(longitude);
+
+                            Toast.makeText(Register.this, "User created", Toast.LENGTH_SHORT).show();
+
                             startActivity(new Intent(getApplicationContext(), MainActivity.class));
                             finish();
                         }else{
@@ -163,12 +172,43 @@ public class Register extends AppCompatActivity {
                 }
             }
 
+                      }
+        });
+    }
+
+    public void getCoordinates() {
+        //check permission
+        if (ActivityCompat.checkSelfPermission(Register.this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
+            //when permission is granted
+            getLocation();
+        } else {
+            //when permission is denied
+            ActivityCompat.requestPermissions(Register.this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 44);
+
+        }
+    }
+
+    private void getLocation() {
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            // TODO: Consider calling
+            //    ActivityCompat#requestPermissions
+            // here to request the missing permissions, and then overriding
+            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+            //                                          int[] grantResults)
+            // to handle the case where the user grants the permission. See the documentation
+            // for ActivityCompat#requestPermissions for more details.
+            return;
+        }
+        fusedLocationProviderClient.getLastLocation().addOnCompleteListener(new OnCompleteListener<Location>() {
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
 
-            }
-        });
-    }
+  
+                        latitude=addresses.get(0).getLatitude();
+                        longitude=addresses.get(0).getLongitude();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
 
     public void onLoginTextClick(){
         TLoginBtn.setOnClickListener(new View.OnClickListener(){
