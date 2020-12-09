@@ -10,6 +10,7 @@ import android.printservice.PrintService;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -23,6 +24,9 @@ import com.google.firebase.database.ValueEventListener;
 public class ProfileFragment extends Fragment {
     private View view;
     private EditText EProfileName;
+    private Button BUpdateProfile;
+
+    private String nameFromDB, nameEdited;
 
     private FirebaseAuth fAuth;
     private DatabaseReference databaseRef;
@@ -39,6 +43,7 @@ public class ProfileFragment extends Fragment {
         view =  inflater.inflate(R.layout.fragment_profile, container, false);
 
         EProfileName = (EditText) view.findViewById(R.id.profile_name);
+        BUpdateProfile = (Button) view.findViewById(R.id.BUpdateProfile);
 
         return view;
     }
@@ -53,6 +58,8 @@ public class ProfileFragment extends Fragment {
         databaseRef = FirebaseDatabase.getInstance().getReference().child("Users").child(userUID);
 
         showProfileInfo();
+        onUpdateProfileButtonClick();
+
     }
 
     private void showProfileInfo() {
@@ -61,9 +68,8 @@ public class ProfileFragment extends Fragment {
         reference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-              String name;
-              name = dataSnapshot.child("Name").getValue().toString();
-              EProfileName.setText(name);
+                nameFromDB = dataSnapshot.child("Name").getValue().toString();
+                EProfileName.setText(nameFromDB);
             }
 
             @Override
@@ -72,5 +78,21 @@ public class ProfileFragment extends Fragment {
             }
         });
 
+    }
+
+    public void onUpdateProfileButtonClick(){
+        BUpdateProfile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                nameEdited = EProfileName.getText().toString().trim();
+                if(!nameEdited.equals(nameFromDB)){
+                    databaseRef = FirebaseDatabase.getInstance().getReference().child("Users").child(userUID);
+                    databaseRef.child("Name").setValue(nameEdited);
+                    Toast.makeText(getActivity(), "Profile updated!", Toast.LENGTH_SHORT).show();
+                }else{
+                    Toast.makeText(getActivity(), "Already up to date!", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
     }
 }
