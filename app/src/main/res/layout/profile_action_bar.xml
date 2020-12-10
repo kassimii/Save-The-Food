@@ -15,6 +15,7 @@
     </androidx.appcompat.widget.Toolbar>
 
     <LinearLayout
+        android:id="@+id/logoutBtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
@@ -36,7 +37,5 @@
             android:src="@drawable/ic_logout"
             />
     </LinearLayout>
-
-
 
 </RelativeLayout>

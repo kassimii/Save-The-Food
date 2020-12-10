@@ -6,6 +6,10 @@
     android:layout_height="match_parent"
     tools:context=".HomeFragment">
 
+    <include
+        android:id="@+id/search_organisation_action_bar"
+        layout="@layout/search_organisation_action_bar" />
+
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

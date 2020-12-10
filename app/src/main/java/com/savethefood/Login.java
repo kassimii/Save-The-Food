@@ -83,9 +83,7 @@ public class Login extends AppCompatActivity {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if(task.isSuccessful()){
-                            //Toast.makeText(Login.this, "Logged in successfully", Toast.LENGTH_SHORT).show();
-                            userUID = fAuth.getCurrentUser().getUid();
-                            databaseRef = FirebaseDatabase.getInstance().getReference().child("Users").child(userUID);
+                            Toast.makeText(Login.this, "Logged in successfully", Toast.LENGTH_SHORT).show();
                             startActivityBasedOnTypeOfUser();
                         }else{
                             Toast.makeText(Login.this, "Error! " + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
@@ -148,14 +146,15 @@ public class Login extends AppCompatActivity {
     }
 
     public void startActivityBasedOnTypeOfUser(){
-        DatabaseReference reference = databaseRef;
-        reference.addValueEventListener(new ValueEventListener() {
+        userUID = fAuth.getCurrentUser().getUid();
+        databaseRef = FirebaseDatabase.getInstance().getReference().child("Users").child(userUID);
+        databaseRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 typeOfUser = snapshot.child("Type").getValue().toString();
 
                 if(typeOfUser.equals("restaurant")){
-                    startActivity(new Intent(getApplicationContext(), MainActivity.class));
+                    startActivity(new Intent(getApplicationContext(), Restaurant.class));
                     finish();
                 }
 

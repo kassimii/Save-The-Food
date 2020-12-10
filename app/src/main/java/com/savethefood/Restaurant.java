@@ -2,12 +2,11 @@ package com.savethefood;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -15,15 +14,21 @@ import android.widget.Button;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 
-public class CharitableOrganisation extends AppCompatActivity {
+public class Restaurant extends AppCompatActivity {
     private BottomNavigationView bottomNavigationView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_charitable_organisation);
+        setContentView(R.layout.activity_restaurant);
 
         showNavbar();
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.home_menu, menu);
+        return true;
     }
 
     public void showNavbar(){
@@ -43,7 +48,7 @@ public class CharitableOrganisation extends AppCompatActivity {
                     fragment = new HomeFragment();
                     break;
                 case R.id.search:
-                    fragment = new DonationsReceivedFragment();
+                    fragment = new SearchFragment();
                     break;
                 case R.id.profile:
                     fragment = new ProfileFragment();
@@ -53,11 +58,7 @@ public class CharitableOrganisation extends AppCompatActivity {
 
             return true;
         }
+
     };
 
-    public void logout(View view) {
-        FirebaseAuth.getInstance().signOut();
-        startActivity(new Intent(getBaseContext(), Login.class));
-        finish();
-    }
 }

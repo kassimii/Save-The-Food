@@ -7,72 +7,73 @@ import androidx.fragment.app.Fragment;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Toast;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 
 public class MainActivity extends AppCompatActivity {
-    private Toolbar toolbar;
-    private BottomNavigationView bottomNavigationView;
+    private FirebaseAuth fAuth;
+    private DatabaseReference databaseRef;
+    private String userUID;
+    private String typeOfUser;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        showActionBar();
-        showNavbar();
+        fAuth = FirebaseAuth.getInstance();
     }
+
 
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.home_menu, menu);
-        return true;
-    }
+    protected void onStart() {
+        super.onStart();
 
-    public void showActionBar(){
-        toolbar = findViewById(R.id.profile_action_bar);
-        setSupportActionBar(toolbar);
-    }
-
-    public void showNavbar(){
-        bottomNavigationView = findViewById(R.id.bottom_navbar);
-        bottomNavigationView.setOnNavigationItemSelectedListener(bottomNavMethod);
-        getSupportFragmentManager().beginTransaction().replace(R.id.container, new HomeFragment()).commit();
-    }
-
-    private BottomNavigationView.OnNavigationItemSelectedListener bottomNavMethod = new BottomNavigationView.OnNavigationItemSelectedListener() {
-        @Override
-        public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-            Fragment fragment = null;
-
-            switch (item.getItemId())
-            {
-                case R.id.home:
-                    fragment = new HomeFragment();
-                    break;
-                case R.id.search:
-                    fragment = new SearchFragment();
-                    break;
-                case R.id.profile:
-                    fragment = new ProfileFragment();
-                    break;
-            }
-            getSupportFragmentManager().beginTransaction().replace(R.id.container, fragment).commit();
-
-            return true;
+        FirebaseUser fUser = fAuth.getCurrentUser();
+        if(fUser != null){
+            startActivityBasedOnTypeOfUser();
+        }else {
+            startActivity(new Intent(this, Login.class));
+            finish();
         }
-    };
-
-    public void logout(View view) {
-        FirebaseAuth.getInstance().signOut();
-        startActivity(new Intent(getApplicationContext(), Login.class));
-        finish();
     }
 
+    public void startActivityBasedOnTypeOfUser(){
+        userUID = fAuth.getCurrentUser().getUid();
+        databaseRef = FirebaseDatabase.getInstance().getReference().child("Users").child(userUID);
+        databaseRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                typeOfUser = snapshot.child("Type").getValue().toString();
 
+                if(typeOfUser.equals("restaurant")){
+                    startActivity(new Intent(getApplicationContext(), Restaurant.class).addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION));
+                    finish();
+                }
+
+                if(typeOfUser.equals("organisation")){
+                    startActivity(new Intent(getApplicationContext(), CharitableOrganisation.class).addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION));
+                    finish();
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+    }
 }
