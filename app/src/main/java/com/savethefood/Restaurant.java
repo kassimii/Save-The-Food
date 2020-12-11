@@ -61,4 +61,10 @@ public class Restaurant extends AppCompatActivity {
 
     };
 
+    public void logout(View view) {
+        FirebaseAuth.getInstance().signOut();
+        startActivity(new Intent(getBaseContext(), Login.class));
+        finish();
+    }
+
 }

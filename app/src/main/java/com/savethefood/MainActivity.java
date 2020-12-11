@@ -23,7 +23,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 
-public class MainActivity extends AppCompatActivity {
+public class  MainActivity extends AppCompatActivity {
     private FirebaseAuth fAuth;
     private DatabaseReference databaseRef;
     private String userUID;
@@ -43,6 +43,7 @@ public class MainActivity extends AppCompatActivity {
         super.onStart();
 
         FirebaseUser fUser = fAuth.getCurrentUser();
+        //Log.d("oana",fUser.getEmail());
         if(fUser != null){
             startActivityBasedOnTypeOfUser();
         }else {
