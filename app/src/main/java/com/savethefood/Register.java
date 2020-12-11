@@ -68,11 +68,6 @@ public class Register extends AppCompatActivity {
 
         initializeComponents();
 
-//        if(fAuth.getCurrentUser() != null){
-//            startActivity(new Intent(getApplicationContext(), MainActivity.class));
-//            finish();
-//        }
-
         setTypeOfUserList();
         chooseTypeOfUser();
         onRegisterButtonClick();
