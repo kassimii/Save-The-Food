@@ -2,16 +2,12 @@ package com.savethefood;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
-import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Toast;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.auth.FirebaseAuth;
@@ -29,46 +25,39 @@ public class  MainActivity extends AppCompatActivity {
     private String userUID;
     private String typeOfUser;
 
+    private BottomNavigationView bottomNavigationView;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
         fAuth = FirebaseAuth.getInstance();
+        showNavbar();
     }
+
 
 
     @Override
     protected void onStart() {
         super.onStart();
-
         FirebaseUser fUser = fAuth.getCurrentUser();
         //Log.d("oana",fUser.getEmail());
         if(fUser != null){
-            startActivityBasedOnTypeOfUser();
+            getTypeOfUserFromDB();
         }else {
             startActivity(new Intent(this, Login.class));
             finish();
         }
     }
 
-    public void startActivityBasedOnTypeOfUser(){
+    public void getTypeOfUserFromDB(){
         userUID = fAuth.getCurrentUser().getUid();
         databaseRef = FirebaseDatabase.getInstance().getReference().child("Users").child(userUID);
         databaseRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 typeOfUser = snapshot.child("Type").getValue().toString();
-
-                if(typeOfUser.equals("restaurant")){
-                    startActivity(new Intent(getApplicationContext(), Restaurant.class).addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION));
-                    finish();
-                }
-
-                if(typeOfUser.equals("organisation")){
-                    startActivity(new Intent(getApplicationContext(), CharitableOrganisation.class).addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION));
-                    finish();
-                }
             }
 
             @Override
@@ -76,5 +65,45 @@ public class  MainActivity extends AppCompatActivity {
 
             }
         });
+    }
+
+    public void showNavbar(){
+        bottomNavigationView = findViewById(R.id.bottom_navbar);
+        bottomNavigationView.setOnNavigationItemSelectedListener(bottomNavMethod);
+        getSupportFragmentManager().beginTransaction().replace(R.id.container, new HomeFragment()).commit();
+    }
+
+    private BottomNavigationView.OnNavigationItemSelectedListener bottomNavMethod = new BottomNavigationView.OnNavigationItemSelectedListener() {
+        @Override
+        public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+            Fragment fragment = null;
+
+            switch (item.getItemId())
+            {
+                case R.id.home:
+                    fragment = new HomeFragment();
+                    break;
+                case R.id.search:
+                    if(typeOfUser.equals("restaurant"))
+                    {
+                        fragment = new SearchFragment();
+                    }else if(typeOfUser.equals("organisation")){
+                        fragment = new DonationsReceivedFragment();
+                    }
+                    break;
+                case R.id.profile:
+                    fragment = new ProfileFragment();
+                    break;
+            }
+            getSupportFragmentManager().beginTransaction().replace(R.id.container, fragment).commit();
+
+            return true;
+        }
+    };
+
+    public void logout(View view) {
+        FirebaseAuth.getInstance().signOut();
+        startActivity(new Intent(getBaseContext(), Login.class));
+        finish();
     }
 }
