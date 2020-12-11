@@ -12,6 +12,7 @@ import android.location.Geocoder;
 import android.location.Location;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -137,19 +138,12 @@ public class Register extends AppCompatActivity {
                             databaseRef.child("Name").setValue(name);
                             databaseRef.child("Type").setValue(typeOfUser);
                             Toast.makeText(Register.this, "User created", Toast.LENGTH_SHORT).show();
-//                            getCoordinates();
+                            //getCoordinates();
 //                            databaseRef.child("Location").child("Latitude").setValue(latitude);
 //                            databaseRef.child("Location").child("Longitude").setValue(longitude);
 
-                            if(typeOfUser.equals("restaurant")){
-                                startActivity(new Intent(getApplicationContext(), MainActivity.class));
-                                finish();
-                            }
-
-                            if(typeOfUser.equals("organisation")){
-                                startActivity(new Intent(getApplicationContext(), CharitableOrganisation.class));
-                                finish();
-                            }
+                            startActivity(new Intent(getApplicationContext(), MainActivity.class));
+                            finish();
 
                         }else{
                             Toast.makeText(Register.this, "Error! " + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
@@ -184,41 +178,6 @@ public class Register extends AppCompatActivity {
     }
 
 
-//    public void getCoordinates() {
-//        //check permission
-//        if (ActivityCompat.checkSelfPermission(Register.this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
-//            //when permission is granted
-//            getLocation();
-//        } else {
-//            //when permission is denied
-//            ActivityCompat.requestPermissions(Register.this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 44);
-//        }
-//    }
-
-//    private void getLocation() {
-//        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-//            // TODO: Consider calling
-//            //    ActivityCompat#requestPermissions
-//            // here to request the missing permissions, and then overriding
-//            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
-//            //                                          int[] grantResults)
-//            // to handle the case where the user grants the permission. See the documentation
-//            // for ActivityCompat#requestPermissions for more details.
-//
-//            return;
-//        }
-//
-//        fusedLocationProviderClient.getLastLocation().addOnCompleteListener(new OnCompleteListener<Location>() {
-//            @Override
-//            public void onNothingSelected(AdapterView<?> parent) {
-//                latitude = addresses.get(0).getLatitude();
-//                longitude = addresses.get(0).getLongitude();
-//            } catch(IOException e)
-//            {
-//                e.printStackTrace();
-//            }
-//        });}
-
     public void onLoginTextClick(){
         TLoginBtn.setOnClickListener(new View.OnClickListener(){
             @Override
@@ -229,54 +188,4 @@ public class Register extends AppCompatActivity {
         });
     }
 
-//    public void getCoordinates() {
-//        //check permission
-//        if (ActivityCompat.checkSelfPermission(Register.this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
-//            //when permission is granted
-//            getLocation();
-//        } else {
-//            //when permission is denied
-//            ActivityCompat.requestPermissions(Register.this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 44);
-//            ;
-//        }
-//    }
-//
-//    private void getLocation() {
-//        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-//            // TODO: Consider calling
-//            //    ActivityCompat#requestPermissions
-//            // here to request the missing permissions, and then overriding
-//            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
-//            //                                          int[] grantResults)
-//            // to handle the case where the user grants the permission. See the documentation
-//            // for ActivityCompat#requestPermissions for more details.
-//            return;
-//        }
-//        fusedLocationProviderClient.getLastLocation().addOnCompleteListener(new OnCompleteListener<Location>() {
-//            @Override
-//            public void onComplete(@NonNull Task<Location> task) {
-//                //initialize location
-//                Location location = task.getResult();
-//                if (location != null) {
-//                    //initialize geoCoder
-//
-//                    //initialize address list
-//                    try {
-//                        Geocoder geocoder = new Geocoder(Register.this, Locale.getDefault());
-//
-//                        //initialize address list
-//                        List<Address> addresses=geocoder.getFromLocation(
-//                                location.getLatitude(),location.getLongitude(),1);
-//
-//                        latitude=addresses.get(0).getLatitude();
-//                        longitude=addresses.get(0).getLongitude();
-//
-//                    } catch (IOException e) {
-//                        e.printStackTrace();
-//                    }
-//
-//                }
-//            }
-//        });
-//    }
 }

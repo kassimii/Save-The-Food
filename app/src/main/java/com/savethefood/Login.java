@@ -84,7 +84,8 @@ public class Login extends AppCompatActivity {
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if(task.isSuccessful()){
                             Toast.makeText(Login.this, "Logged in successfully", Toast.LENGTH_SHORT).show();
-                            startActivityBasedOnTypeOfUser();
+                            startActivity(new Intent(getApplicationContext(), MainActivity.class));
+                            finish();
                         }else{
                             Toast.makeText(Login.this, "Error! " + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
                             progressBar.setVisibility(View.GONE);
@@ -145,29 +146,29 @@ public class Login extends AppCompatActivity {
         });
     }
 
-    public void startActivityBasedOnTypeOfUser(){
-        userUID = fAuth.getCurrentUser().getUid();
-        databaseRef = FirebaseDatabase.getInstance().getReference().child("Users").child(userUID);
-        databaseRef.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                typeOfUser = snapshot.child("Type").getValue().toString();
-
-                if(typeOfUser.equals("restaurant")){
-                    startActivity(new Intent(getApplicationContext(), Restaurant.class));
-                    finish();
-                }
-
-                if(typeOfUser.equals("organisation")){
-                    startActivity(new Intent(getApplicationContext(), CharitableOrganisation.class));
-                    finish();
-                }
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
-        });
-    }
+//    public void startActivityBasedOnTypeOfUser(){
+//        userUID = fAuth.getCurrentUser().getUid();
+//        databaseRef = FirebaseDatabase.getInstance().getReference().child("Users").child(userUID);
+//        databaseRef.addValueEventListener(new ValueEventListener() {
+//            @Override
+//            public void onDataChange(@NonNull DataSnapshot snapshot) {
+//                typeOfUser = snapshot.child("Type").getValue().toString();
+//
+//                if(typeOfUser.equals("restaurant")){
+//                    startActivity(new Intent(getApplicationContext(), Restaurant.class));
+//                    finish();
+//                }
+//
+//                if(typeOfUser.equals("organisation")){
+//                    startActivity(new Intent(getApplicationContext(), CharitableOrganisation.class));
+//                    finish();
+//                }
+//            }
+//
+//            @Override
+//            public void onCancelled(@NonNull DatabaseError error) {
+//
+//            }
+//        });
+//    }
 }
