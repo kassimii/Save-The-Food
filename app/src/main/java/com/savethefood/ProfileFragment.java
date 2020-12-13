@@ -27,7 +27,7 @@ public class ProfileFragment extends Fragment {
 
     private String nameFromDB, nameEdited;
 
-    private FirebaseAuth fAuth;
+    private FirebaseAuth fAuth; //1
     private DatabaseReference databaseRef;
     private String userUID;
 
@@ -66,7 +66,7 @@ public class ProfileFragment extends Fragment {
         reference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                nameFromDB = dataSnapshot.child("Name").getValue().toString();
+                nameFromDB = dataSnapshot.child("Name").getValue().toString();//1
                 EProfileName.setText(nameFromDB);
             }
 
