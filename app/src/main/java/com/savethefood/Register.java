@@ -12,7 +12,6 @@ import android.location.Geocoder;
 import android.location.Location;
 import android.os.Bundle;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -57,8 +56,8 @@ public class Register extends AppCompatActivity {
     private DatabaseReference databaseRef;
 
     private FusedLocationProviderClient fusedLocationProviderClient;
-    private double latitude;
-    private double longitude;
+    private double latitude = 2000;
+    private double longitude = 2000;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,11 +66,6 @@ public class Register extends AppCompatActivity {
         fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this);
 
         initializeComponents();
-
-//        if(fAuth.getCurrentUser() != null){
-//            startActivity(new Intent(getApplicationContext(), MainActivity.class));
-//            finish();
-//        }
 
         setTypeOfUserList();
         chooseTypeOfUser();
@@ -138,6 +132,11 @@ public class Register extends AppCompatActivity {
                     return;
                 }
 
+                if(longitude == 2000 || latitude == 2000){
+                    Toast.makeText(Register.this, "Please select your location", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
                 progressBar.setVisibility(View.VISIBLE);
 
                 fAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
@@ -152,15 +151,8 @@ public class Register extends AppCompatActivity {
                             databaseRef.child("Location").child("Latitude").setValue(latitude);
                             databaseRef.child("Location").child("Longitude").setValue(longitude);
 
-                            if (typeOfUser.equals("restaurant")) {
-                                startActivity(new Intent(getApplicationContext(), MainActivity.class));
-                                finish();
-                            }
-
-                            if (typeOfUser.equals("organisation")) {
-                                startActivity(new Intent(getApplicationContext(), CharitableOrganisation.class));
-                                finish();
-                            }
+                            startActivity(new Intent(getApplicationContext(), MainActivity.class));
+                            finish();
 
                         } else {
                             Toast.makeText(Register.this, "Error! " + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
