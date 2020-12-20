@@ -43,7 +43,6 @@ public class Register extends AppCompatActivity {
     private Button BRegister;
     private Button BLocation;
     private TextView TLoginBtn;
-    private FirebaseAuth fAuth;
     private ProgressBar progressBar;
     private Spinner typeOfUserSpinner;
 
@@ -52,6 +51,7 @@ public class Register extends AppCompatActivity {
 
     private String typeOfUser = "";
 
+    private FirebaseAuth fAuth;
     private String userUID;
     private DatabaseReference databaseRef;
 
