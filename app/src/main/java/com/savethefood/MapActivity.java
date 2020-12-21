@@ -1,6 +1,7 @@
 package com.savethefood;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.FragmentActivity;
@@ -11,6 +12,7 @@ import android.content.pm.PackageManager;
 import android.location.Location;
 import android.os.Bundle;
 import android.telecom.Call;
+import android.util.Log;
 
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
@@ -23,18 +25,29 @@ import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.ChildEventListener;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 
 public class MapActivity extends FragmentActivity implements OnMapReadyCallback {
 
-    private GoogleMap mMap;
-    private ArrayList<LatLng> arrayList = new ArrayList<LatLng>();
-    LatLng sydney = new LatLng(45.7577877, 21.2183943);
-    LatLng sydney2 = new LatLng(46, 39);
-    LatLng sydney3 = new LatLng(47, 43);
+    private FirebaseAuth fAuth;
+    private DatabaseReference databaseRef;
+    private String userUID;
+    private String typeOfUser;
 
-    private ArrayList<String> names = new ArrayList<String>();
+    private GoogleMap mMap;
+    private double latitude;
+    private double longitude;
+    private String name;
+
 
     private int ACCESS_LOCATION_REQUEST_CODE = 10001;
     private FusedLocationProviderClient fusedLocationProviderClient;
@@ -43,20 +56,51 @@ public class MapActivity extends FragmentActivity implements OnMapReadyCallback 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_map);
-        // Obtain the SupportMapFragment and get notified when the map is ready to be used.
+
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
 
+        fAuth = FirebaseAuth.getInstance();
+
         //fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this);
 
-        arrayList.add(sydney);
-        arrayList.add(sydney2);
-        arrayList.add(sydney3);
 
-        names.add("sydney");
-        names.add("sydney2");
-        names.add("sydney3");
+    }
+
+
+    public void getDataFromFirebase(){
+        userUID = fAuth.getCurrentUser().getUid();
+        databaseRef = FirebaseDatabase.getInstance().getReference().child("Users");
+        databaseRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+
+                Iterator<DataSnapshot> items = snapshot.getChildren().iterator();
+                while (items.hasNext()) {
+                    DataSnapshot item = items.next();
+
+                    typeOfUser = item.child("Type").getValue().toString();
+
+                    if (typeOfUser.equals("organisation")) {
+
+                        latitude = item.child("Location").child("Latitude").getValue(Double.class);
+                        longitude = item.child("Location").child("Longitude").getValue(Double.class);
+                        name = item.child("Name").getValue().toString();
+
+                        LatLng location=new LatLng(latitude,longitude);
+                        mMap.addMarker(new MarkerOptions().position(location).title(String.valueOf(name)));
+
+
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
 
     }
 
@@ -73,44 +117,28 @@ public class MapActivity extends FragmentActivity implements OnMapReadyCallback 
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
 
-        //current location
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
             enableUserLocation();
             //zoomToUserLocation();
         } else {
             if (ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.ACCESS_FINE_LOCATION)) {
-                //dialog why this permission is needed
                 ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, ACCESS_LOCATION_REQUEST_CODE);
             } else {
                 ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, ACCESS_LOCATION_REQUEST_CODE);
             }
         }
+        getDataFromFirebase();
 
 
-        // Add a marker in Sydney and move the camera
-
-        //  mMap.addMarker(new MarkerOptions().position(sydney).title("Marker in Sydney"));
-        // mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
-
-        for (int i = 0; i < arrayList.size(); i++) {
-
-            for (int j = 0; j < names.size(); j++) {
-                mMap.addMarker(new MarkerOptions().position(arrayList.get(i)).title(String.valueOf(names.get(j))));
-            }
-            // mMap.animateCamera(CameraUpdateFactory.zoomTo(15.0f));
-            mMap.moveCamera(CameraUpdateFactory.newLatLng(arrayList.get(i)));
-        }
-
-        //add on click listener for markers
         mMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
             @Override
             public boolean onMarkerClick(Marker marker) {
                 String markerTitle = marker.getTitle();
 
-                //Intent i = new Intent(MapActivity.this, DetailsActivity.class);
+                Intent i = new Intent(MapActivity.this, DetailsActivity.class);
 
-//                i.putExtra("title", markerTitle); //passing title to the new Activity
-//                startActivity(i);
+               //i.putExtra("title", markerTitle); //passing title to the new Activity
+               startActivity(i);
 
                 return false;
             }
