@@ -50,7 +50,7 @@ public class DonationsReceivedFragment extends Fragment implements RequestDialog
         databaseRef.child("Requests").child(timeStamp).child("Number of persons").setValue(receivedNumberOfPersons);
         databaseRef.child("Requests").child(timeStamp).child("Special request").setValue(receivedSpecialRequest);
 
-        Toast.makeText(getActivity(), "Request added", Toast.LENGTH_SHORT).show();
+        Toast.makeText(getActivity(), "Request registered.", Toast.LENGTH_SHORT).show();
     }
 
     public DonationsReceivedFragment() {
@@ -76,14 +76,17 @@ public class DonationsReceivedFragment extends Fragment implements RequestDialog
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        fAuth = FirebaseAuth.getInstance();
-        userUID = fAuth.getCurrentUser().getUid();
-        databaseRef = FirebaseDatabase.getInstance().getReference().child("Users").child(userUID);
-
+        initializeDatabaseConstants();
         getUserName();
         getTodaysRequest();
         addNewRequest();
         getDonations();
+    }
+
+    public void initializeDatabaseConstants(){
+        fAuth = FirebaseAuth.getInstance();
+        userUID = fAuth.getCurrentUser().getUid();
+        databaseRef = FirebaseDatabase.getInstance().getReference().child("Users").child(userUID);
     }
 
     public void getUserName(){
@@ -109,9 +112,7 @@ public class DonationsReceivedFragment extends Fragment implements RequestDialog
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                if(dataSnapshot.child("Requests").hasChild(timeStamp)){
-                   BNewRequest.setVisibility(View.GONE);
-               }else{
-                   BNewRequest.setVisibility(View.VISIBLE);
+                   BNewRequest.setText("Change request");
                }
             }
 
@@ -134,13 +135,15 @@ public class DonationsReceivedFragment extends Fragment implements RequestDialog
     }
 
     private static class Donation{
-        public String to, from, when, what;
+        public String donationUID, to, from, when, what, status;
 
-        public Donation(String to, String from, String when, String what){
+        public Donation(String donationUID, String to, String from, String when, String what, String status){
+            this.donationUID = donationUID;
             this.to = to;
             this.from = from;
             this.when = when;
             this.what = what;
+            this.status = status;
         }
     }
 
@@ -153,16 +156,18 @@ public class DonationsReceivedFragment extends Fragment implements RequestDialog
 
                 while(items.hasNext()){
                     DataSnapshot item = items.next();
-                    String to, from, when, what;
+                    String donationUID, to, from, when, what, status;
                     to = item.child("To").getValue().toString();
                     if(to.equals(userName)){
+                        donationUID = item.getKey().toString();
                         from = item.child("From").getValue().toString();
                         when = item.child("When").getValue().toString();
                         what = item.child("What").getValue().toString();
+                        status = item.child("Status").getValue().toString();
                     }else {
                         continue;
                     }
-                    Donation donation = new Donation(to, from, when, what);
+                    Donation donation = new Donation(donationUID, to, from, when, what, status);
                     donations.add(donation);
                 }
 
@@ -186,9 +191,11 @@ public class DonationsReceivedFragment extends Fragment implements RequestDialog
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Intent intent = new Intent(getActivity(), DonationDetails.class);
+                intent.putExtra("DonationUID", donations.get(position).donationUID);
                 intent.putExtra("From", donations.get(position).from);
                 intent.putExtra("What", donations.get(position).what);
                 intent.putExtra("When", donations.get(position).when);
+                intent.putExtra("Status", donations.get(position).status);
 
                 startActivity(intent);
             }
@@ -219,11 +226,11 @@ public class DonationsReceivedFragment extends Fragment implements RequestDialog
 
             TextView TVFromRow = (TextView) donationRowView.findViewById(R.id.TVFromRow);
             TextView TVWhatRow = (TextView) donationRowView.findViewById(R.id.TVWhatRow);
-            TextView TVReceived = (TextView) donationRowView.findViewById(R.id.TVReceived);
+            TextView TVStatus = (TextView) donationRowView.findViewById(R.id.TVStatus);
 
             TVFromRow.setText(donations.get(position).from);
-            Log.d("JOHN",donations.get(position).from );
             TVWhatRow.setText(donations.get(position).what);
+            TVStatus.setText(donations.get(position).status);
 
             return donationRowView;
         }

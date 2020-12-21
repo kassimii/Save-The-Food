@@ -69,7 +69,6 @@ public class  MainActivity extends AppCompatActivity {
     public void showNavbar(){
         bottomNavigationView = findViewById(R.id.bottom_navbar);
         bottomNavigationView.setOnNavigationItemSelectedListener(bottomNavMethod);
-        getSupportFragmentManager().beginTransaction().replace(R.id.container, new HomeFragment()).commit();
     }
 
     private BottomNavigationView.OnNavigationItemSelectedListener bottomNavMethod = new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -91,7 +90,12 @@ public class  MainActivity extends AppCompatActivity {
                     }
                     break;
                 case R.id.profile:
-                    fragment = new ProfileFragment();
+                    if(typeOfUser.equals("restaurant"))
+                    {
+                        fragment = new ProfileFragment();
+                    }else if(typeOfUser.equals("organisation")){
+                        fragment = new OrganisationProfileFragment();
+                    }
                     break;
             }
             getSupportFragmentManager().beginTransaction().replace(R.id.container, fragment).commit();
