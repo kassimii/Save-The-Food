@@ -8,15 +8,23 @@
 
     <include
         android:id="@+id/search_organisation_action_bar"
-        layout="@layout/search_organisation_action_bar" />
+        layout="@layout/search_organisation_action_bar"
+        tools:layout_editor_absoluteX="-16dp"
+        tools:layout_editor_absoluteY="-356dp" />
 
-    <TextView
+    <Button
+        android:id="@+id/searchOnMap"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Search"
+        android:text="SEARCH"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/search_organisation_action_bar"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="@+id/search_organisation_action_bar"
+        android:background="@drawable/custom_color_accent_mid_button"/>
+    />
+
+
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
