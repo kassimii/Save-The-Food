@@ -1,11 +1,14 @@
 package com.savethefood;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.PersistableBundle;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 
@@ -35,8 +38,6 @@ public class  MainActivity extends AppCompatActivity {
         fAuth = FirebaseAuth.getInstance();
     }
 
-
-
     @Override
     protected void onStart() {
         super.onStart();
@@ -47,6 +48,7 @@ public class  MainActivity extends AppCompatActivity {
             startActivity(new Intent(this, Login.class));
             finish();
         }
+
     }
 
     public void getTypeOfUserFromDB(){

@@ -89,5 +89,5 @@
             android:text="Update profile" />
     </LinearLayout>
 
-    
+
 </androidx.constraintlayout.widget.ConstraintLayout>

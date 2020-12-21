@@ -39,7 +39,7 @@ public class DonationsReceivedFragment extends Fragment implements RequestDialog
 
     private FirebaseAuth fAuth;
     private DatabaseReference databaseRef;
-    private String userUID, userName;
+    private String userUID;
 
 
     @Override
@@ -77,7 +77,6 @@ public class DonationsReceivedFragment extends Fragment implements RequestDialog
         super.onViewCreated(view, savedInstanceState);
 
         initializeDatabaseConstants();
-        getUserName();
         getTodaysRequest();
         addNewRequest();
         getDonations();
@@ -87,22 +86,6 @@ public class DonationsReceivedFragment extends Fragment implements RequestDialog
         fAuth = FirebaseAuth.getInstance();
         userUID = fAuth.getCurrentUser().getUid();
         databaseRef = FirebaseDatabase.getInstance().getReference().child("Users").child(userUID);
-    }
-
-    public void getUserName(){
-        DatabaseReference reference = databaseRef;
-
-        reference.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                userName = dataSnapshot.child("Name").getValue().toString();
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-
-            }
-        });
     }
 
     public void getTodaysRequest(){
@@ -135,12 +118,13 @@ public class DonationsReceivedFragment extends Fragment implements RequestDialog
     }
 
     private static class Donation{
-        public String donationUID, to, from, when, what, status;
+        public String donationUID, to, from, restaurant, when, what, status;
 
-        public Donation(String donationUID, String to, String from, String when, String what, String status){
+        public Donation(String donationUID, String to, String from, String restaurant, String when, String what, String status){
             this.donationUID = donationUID;
             this.to = to;
             this.from = from;
+            this.restaurant = restaurant;
             this.when = when;
             this.what = what;
             this.status = status;
@@ -156,18 +140,19 @@ public class DonationsReceivedFragment extends Fragment implements RequestDialog
 
                 while(items.hasNext()){
                     DataSnapshot item = items.next();
-                    String donationUID, to, from, when, what, status;
+                    String donationUID, to, from, restaurant, when, what, status;
                     to = item.child("To").getValue().toString();
-                    if(to.equals(userName)){
+                    if(to.equals(userUID)){
                         donationUID = item.getKey().toString();
                         from = item.child("From").getValue().toString();
+                        restaurant = item.child("Restaurant").getValue().toString();
                         when = item.child("When").getValue().toString();
                         what = item.child("What").getValue().toString();
                         status = item.child("Status").getValue().toString();
                     }else {
                         continue;
                     }
-                    Donation donation = new Donation(donationUID, to, from, when, what, status);
+                    Donation donation = new Donation(donationUID, to, from, restaurant, when, what, status);
                     donations.add(donation);
                 }
 
@@ -192,7 +177,7 @@ public class DonationsReceivedFragment extends Fragment implements RequestDialog
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Intent intent = new Intent(getActivity(), DonationDetails.class);
                 intent.putExtra("DonationUID", donations.get(position).donationUID);
-                intent.putExtra("From", donations.get(position).from);
+                intent.putExtra("Restaurant", donations.get(position).restaurant);
                 intent.putExtra("What", donations.get(position).what);
                 intent.putExtra("When", donations.get(position).when);
                 intent.putExtra("Status", donations.get(position).status);
@@ -228,7 +213,7 @@ public class DonationsReceivedFragment extends Fragment implements RequestDialog
             TextView TVWhatRow = (TextView) donationRowView.findViewById(R.id.TVWhatRow);
             TextView TVStatus = (TextView) donationRowView.findViewById(R.id.TVStatus);
 
-            TVFromRow.setText(donations.get(position).from);
+            TVFromRow.setText(donations.get(position).restaurant);
             TVWhatRow.setText(donations.get(position).what);
             TVStatus.setText(donations.get(position).status);
 

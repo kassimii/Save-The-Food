@@ -50,8 +50,7 @@ public class DonationDetails extends AppCompatActivity {
 
     public void setDonationDetails(){
         Intent intent = getIntent();
-
-        TVFrom.setText(intent.getStringExtra("From"));
+        TVFrom.setText(intent.getStringExtra("Restaurant"));
         TVWhat.setText(intent.getStringExtra("What"));
         TVWhen.setText(intent.getStringExtra("When"));
         donationUID = intent.getStringExtra("DonationUID");
@@ -69,6 +68,7 @@ public class DonationDetails extends AppCompatActivity {
             public void onClick(View v) {
                 databaseRef.child(donationUID).child("Status").setValue("Received");
                 Toast.makeText(DonationDetails.this, "Changed donation status.", Toast.LENGTH_SHORT).show();
+
                 Intent intent = new Intent(getApplicationContext(), MainActivity.class);
                 startActivity(intent);
             }
