@@ -50,7 +50,7 @@ public class RequestDialog extends DialogFragment {
         ENumberOfPersons = (EditText) view.findViewById(R.id.ENumberOfPersons);
         ESpecialRequest = (EditText)view.findViewById(R.id.ESpecialRequest);
 
-        timeStamp = new SimpleDateFormat("dd-MM-yyyy").format(Calendar.getInstance().getTime());
+        timeStamp = new SimpleDateFormat("dd MM yyyy").format(Calendar.getInstance().getTime());
 
         fAuth = FirebaseAuth.getInstance();
         userUID = fAuth.getCurrentUser().getUid();
@@ -63,7 +63,9 @@ public class RequestDialog extends DialogFragment {
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 if(dataSnapshot.child("Requests").hasChild(timeStamp)){
                     personsTodaysRequestFromDB = dataSnapshot.child("Requests").child(timeStamp).child("Number of persons").getValue().toString();
-                    specialTodaysRequestFromDB = dataSnapshot.child("Requests").child(timeStamp).child("Special request").getValue().toString();
+                    if (dataSnapshot.child("Requests").child(timeStamp).child("Special request").exists()){
+                        specialTodaysRequestFromDB = dataSnapshot.child("Requests").child(timeStamp).child("Special request").getValue().toString();
+                    }
 
                     ENumberOfPersons.setText(personsTodaysRequestFromDB);
                     ESpecialRequest.setText(specialTodaysRequestFromDB);
@@ -89,6 +91,9 @@ public class RequestDialog extends DialogFragment {
                 String numberOfPersons = ENumberOfPersons.getText().toString();
                 String specialRequest = ESpecialRequest.getText().toString();
                 if(!numberOfPersons.equals("")){
+                    if(specialRequest.equals("")){
+                        specialRequest = "None";
+                    }
                     onInputSelected.sendInput(numberOfPersons, specialRequest);
                 }
 

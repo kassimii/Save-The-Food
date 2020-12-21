@@ -6,6 +6,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -45,6 +46,8 @@ public class ProfileFragment extends Fragment implements RequestDialog.OnInputSe
         databaseRef.child("Requests").child(timeStamp).child("Special request").setValue(receivedSpecialRequest);
 
         Toast.makeText(getActivity(), "Request changed", Toast.LENGTH_SHORT).show();
+
+        showTodaysRequest();
     }
 
     public ProfileFragment() {
@@ -57,13 +60,19 @@ public class ProfileFragment extends Fragment implements RequestDialog.OnInputSe
         // Inflate the layout for this fragment
         view =  inflater.inflate(R.layout.fragment_profile, container, false);
 
-        timeStamp = new SimpleDateFormat("dd-MM-yyyy").format(Calendar.getInstance().getTime());
+        timeStamp = new SimpleDateFormat("dd MM yyyy").format(Calendar.getInstance().getTime());
 
         EProfileName = (EditText) view.findViewById(R.id.profile_name);
         BUpdateProfile = (Button) view.findViewById(R.id.BUpdateProfile);
         TTodaysPersons = (TextView)view.findViewById(R.id.TTodaysPersons);
         TTodaysSpecial = (TextView)view.findViewById(R.id.TTodaysSpecial);
         BChangeTodaysRequest = (Button) view.findViewById(R.id.BChangeTodaysRequest);
+
+        fAuth = FirebaseAuth.getInstance();
+        userUID = fAuth.getCurrentUser().getUid();
+        databaseRef = FirebaseDatabase.getInstance().getReference().child("Users").child(userUID);
+
+        showProfileInfo();
 
         return view;
     }
@@ -72,11 +81,7 @@ public class ProfileFragment extends Fragment implements RequestDialog.OnInputSe
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        fAuth = FirebaseAuth.getInstance();
-        userUID = fAuth.getCurrentUser().getUid();
-        databaseRef = FirebaseDatabase.getInstance().getReference().child("Users").child(userUID);
 
-        showProfileInfo();
         onUpdateProfileButtonClick();
         changeTodaysRequest();
     }
@@ -92,10 +97,11 @@ public class ProfileFragment extends Fragment implements RequestDialog.OnInputSe
 
                 if(dataSnapshot.child("Requests").hasChild(timeStamp)){
                     personsTodaysRequestFromDB = dataSnapshot.child("Requests").child(timeStamp).child("Number of persons").getValue().toString();
-                    specialTodaysRequestFromDB = dataSnapshot.child("Requests").child(timeStamp).child("Special request").getValue().toString();
+                    if (dataSnapshot.child("Requests").child(timeStamp).child("Special request").exists()){
+                        specialTodaysRequestFromDB = dataSnapshot.child("Requests").child(timeStamp).child("Special request").getValue().toString();
+                    }
 
-                    TTodaysPersons.setText(personsTodaysRequestFromDB);
-                    TTodaysSpecial.setText(specialTodaysRequestFromDB);
+                    showTodaysRequest();
                 }
             }
 
@@ -132,6 +138,11 @@ public class ProfileFragment extends Fragment implements RequestDialog.OnInputSe
                 requestDialog.show(getFragmentManager(), "Request dialog");
             }
         });
+    }
+
+    public void showTodaysRequest(){
+        TTodaysPersons.setText(personsTodaysRequestFromDB);
+        TTodaysSpecial.setText(specialTodaysRequestFromDB);
     }
 
 }
