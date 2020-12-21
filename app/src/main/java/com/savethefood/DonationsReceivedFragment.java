@@ -1,15 +1,21 @@
 package com.savethefood;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.BaseAdapter;
 import android.widget.Button;
+import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -20,16 +26,20 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Iterator;
 
 
 public class DonationsReceivedFragment extends Fragment implements RequestDialog.OnInputSelected {
     private Button BNewRequest;
-    private String receivedNumberOfPersons, receivedSpecialRequest, timeStamp, todaysRequest;
+    private String receivedNumberOfPersons, receivedSpecialRequest, timeStamp;
+    private ArrayList<Donation> donations = new ArrayList<>();
+    private ListView LVDonations;
 
     private FirebaseAuth fAuth;
     private DatabaseReference databaseRef;
-    private String userUID;
+    private String userUID, userName;
 
 
     @Override
@@ -39,7 +49,6 @@ public class DonationsReceivedFragment extends Fragment implements RequestDialog
 
         databaseRef.child("Requests").child(timeStamp).child("Number of persons").setValue(receivedNumberOfPersons);
         databaseRef.child("Requests").child(timeStamp).child("Special request").setValue(receivedSpecialRequest);
-
 
         Toast.makeText(getActivity(), "Request added", Toast.LENGTH_SHORT).show();
     }
@@ -55,9 +64,10 @@ public class DonationsReceivedFragment extends Fragment implements RequestDialog
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_donations_received, container, false);
 
-        timeStamp = new SimpleDateFormat("dd-MM-yyyy").format(Calendar.getInstance().getTime());
+        timeStamp = new SimpleDateFormat("dd MM yyyy").format(Calendar.getInstance().getTime());
 
         BNewRequest = (Button) view.findViewById(R.id.BNewRequest);
+        LVDonations = (ListView) view.findViewById(R.id.LVDonations);
 
         return view;
     }
@@ -70,8 +80,26 @@ public class DonationsReceivedFragment extends Fragment implements RequestDialog
         userUID = fAuth.getCurrentUser().getUid();
         databaseRef = FirebaseDatabase.getInstance().getReference().child("Users").child(userUID);
 
+        getUserName();
         getTodaysRequest();
         addNewRequest();
+        getDonations();
+    }
+
+    public void getUserName(){
+        DatabaseReference reference = databaseRef;
+
+        reference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                userName = dataSnapshot.child("Name").getValue().toString();
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
     }
 
     public void getTodaysRequest(){
@@ -80,10 +108,10 @@ public class DonationsReceivedFragment extends Fragment implements RequestDialog
         reference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-               todaysRequest = dataSnapshot.child("Requests").child(timeStamp).getValue().toString();
-
-               if(!todaysRequest.equals("")){
+               if(dataSnapshot.child("Requests").hasChild(timeStamp)){
                    BNewRequest.setVisibility(View.GONE);
+               }else{
+                   BNewRequest.setVisibility(View.VISIBLE);
                }
             }
 
@@ -101,10 +129,104 @@ public class DonationsReceivedFragment extends Fragment implements RequestDialog
                 RequestDialog requestDialog = new RequestDialog();
                 requestDialog.setTargetFragment(DonationsReceivedFragment.this, 1);
                 requestDialog.show(getFragmentManager(), "Request dialog");
-
             }
         });
     }
 
+    private static class Donation{
+        public String to, from, when, what;
+
+        public Donation(String to, String from, String when, String what){
+            this.to = to;
+            this.from = from;
+            this.when = when;
+            this.what = what;
+        }
+    }
+
+    public void getDonations(){
+        DatabaseReference donationsRef = FirebaseDatabase.getInstance().getReference().child("Donations");
+        donationsRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                Iterator<DataSnapshot> items = snapshot.getChildren().iterator();
+
+                while(items.hasNext()){
+                    DataSnapshot item = items.next();
+                    String to, from, when, what;
+                    to = item.child("To").getValue().toString();
+                    if(to.equals(userName)){
+                        from = item.child("From").getValue().toString();
+                        when = item.child("When").getValue().toString();
+                        what = item.child("What").getValue().toString();
+                    }else {
+                        continue;
+                    }
+                    Donation donation = new Donation(to, from, when, what);
+                    donations.add(donation);
+                }
+
+                showDonations();
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
+    }
+
+    public void showDonations(){
+
+        CustomAdapter customAdapter = new CustomAdapter();
+        LVDonations.setAdapter(customAdapter);
+
+        LVDonations.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Intent intent = new Intent(getActivity(), DonationDetails.class);
+                intent.putExtra("From", donations.get(position).from);
+                intent.putExtra("What", donations.get(position).what);
+                intent.putExtra("When", donations.get(position).when);
+
+                startActivity(intent);
+            }
+        });
+
+    }
+
+    private class CustomAdapter extends BaseAdapter{
+
+        @Override
+        public int getCount() {
+            return donations.size();
+        }
+
+        @Override
+        public Object getItem(int position) {
+            return null;
+        }
+
+        @Override
+        public long getItemId(int position) {
+            return 0;
+        }
+
+        @Override
+        public View getView(int position, View convertView, ViewGroup parent) {
+            View donationRowView = getLayoutInflater().inflate(R.layout.donations_row_data, null);
+
+            TextView TVFromRow = (TextView) donationRowView.findViewById(R.id.TVFromRow);
+            TextView TVWhatRow = (TextView) donationRowView.findViewById(R.id.TVWhatRow);
+            TextView TVReceived = (TextView) donationRowView.findViewById(R.id.TVReceived);
+
+            TVFromRow.setText(donations.get(position).from);
+            Log.d("JOHN",donations.get(position).from );
+            TVWhatRow.setText(donations.get(position).what);
+
+            return donationRowView;
+        }
+    }
 
 }
