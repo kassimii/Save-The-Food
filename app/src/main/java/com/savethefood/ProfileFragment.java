@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -20,16 +21,31 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-public class ProfileFragment extends Fragment {
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+
+public class ProfileFragment extends Fragment implements RequestDialog.OnInputSelected{
     private View view;
     private EditText EProfileName;
-    private Button BUpdateProfile;
+    private TextView TTodaysPersons, TTodaysSpecial;
+    private Button BUpdateProfile, BChangeTodaysRequest;
 
-    private String nameFromDB, nameEdited;
+    private String nameFromDB, personsTodaysRequestFromDB, specialTodaysRequestFromDB, nameEdited, timeStamp, receivedNumberOfPersons, receivedSpecialRequest;
 
     private FirebaseAuth fAuth; //1
     private DatabaseReference databaseRef;
     private String userUID;
+
+    @Override
+    public void sendInput(String numberOfPersons, String specialRequest) {
+        receivedNumberOfPersons = numberOfPersons;
+        receivedSpecialRequest = specialRequest;
+
+        databaseRef.child("Requests").child(timeStamp).child("Number of persons").setValue(receivedNumberOfPersons);
+        databaseRef.child("Requests").child(timeStamp).child("Special request").setValue(receivedSpecialRequest);
+
+        Toast.makeText(getActivity(), "Request changed", Toast.LENGTH_SHORT).show();
+    }
 
     public ProfileFragment() {
         // Required empty public constructor
@@ -41,8 +57,13 @@ public class ProfileFragment extends Fragment {
         // Inflate the layout for this fragment
         view =  inflater.inflate(R.layout.fragment_profile, container, false);
 
+        timeStamp = new SimpleDateFormat("dd-MM-yyyy").format(Calendar.getInstance().getTime());
+
         EProfileName = (EditText) view.findViewById(R.id.profile_name);
         BUpdateProfile = (Button) view.findViewById(R.id.BUpdateProfile);
+        TTodaysPersons = (TextView)view.findViewById(R.id.TTodaysPersons);
+        TTodaysSpecial = (TextView)view.findViewById(R.id.TTodaysSpecial);
+        BChangeTodaysRequest = (Button) view.findViewById(R.id.BChangeTodaysRequest);
 
         return view;
     }
@@ -53,11 +74,11 @@ public class ProfileFragment extends Fragment {
 
         fAuth = FirebaseAuth.getInstance();
         userUID = fAuth.getCurrentUser().getUid();
-
         databaseRef = FirebaseDatabase.getInstance().getReference().child("Users").child(userUID);
 
         showProfileInfo();
         onUpdateProfileButtonClick();
+        changeTodaysRequest();
     }
 
     private void showProfileInfo() {
@@ -68,6 +89,14 @@ public class ProfileFragment extends Fragment {
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 nameFromDB = dataSnapshot.child("Name").getValue().toString();//1
                 EProfileName.setText(nameFromDB);
+
+                if(dataSnapshot.child("Requests").hasChild(timeStamp)){
+                    personsTodaysRequestFromDB = dataSnapshot.child("Requests").child(timeStamp).child("Number of persons").getValue().toString();
+                    specialTodaysRequestFromDB = dataSnapshot.child("Requests").child(timeStamp).child("Special request").getValue().toString();
+
+                    TTodaysPersons.setText(personsTodaysRequestFromDB);
+                    TTodaysSpecial.setText(specialTodaysRequestFromDB);
+                }
             }
 
             @Override
@@ -90,6 +119,17 @@ public class ProfileFragment extends Fragment {
                 }else{
                     Toast.makeText(getActivity(), "Already up to date!", Toast.LENGTH_SHORT).show();
                 }
+            }
+        });
+    }
+
+    public void changeTodaysRequest(){
+        BChangeTodaysRequest.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                RequestDialog requestDialog = new RequestDialog();
+                requestDialog.setTargetFragment(ProfileFragment.this, 1);
+                requestDialog.show(getFragmentManager(), "Request dialog");
             }
         });
     }

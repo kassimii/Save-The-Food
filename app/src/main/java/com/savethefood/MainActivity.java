@@ -33,7 +33,6 @@ public class  MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         fAuth = FirebaseAuth.getInstance();
-        showNavbar();
     }
 
 
@@ -42,7 +41,6 @@ public class  MainActivity extends AppCompatActivity {
     protected void onStart() {
         super.onStart();
         FirebaseUser fUser = fAuth.getCurrentUser();
-        //Log.d("oana",fUser.getEmail());
         if(fUser != null){
             getTypeOfUserFromDB();
         }else {
@@ -58,6 +56,7 @@ public class  MainActivity extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 typeOfUser = snapshot.child("Type").getValue().toString();
+                showNavbar();
             }
 
             @Override
