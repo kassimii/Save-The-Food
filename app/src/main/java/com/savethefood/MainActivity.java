@@ -36,6 +36,17 @@ public class  MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         fAuth = FirebaseAuth.getInstance();
+
+        Intent intent = getIntent();
+        int destinationFragment = intent.getIntExtra("DestinationFragment", 0);
+        if(intent.getCategories().equals(null)){
+            switch(destinationFragment)
+            {
+                case 2:
+                    getSupportFragmentManager().beginTransaction().replace(R.id.container, new DonationsReceivedFragment()).commit();
+                    break;
+            }
+        }
     }
 
     @Override

@@ -70,6 +70,7 @@ public class DonationDetails extends AppCompatActivity {
                 Toast.makeText(DonationDetails.this, "Changed donation status.", Toast.LENGTH_SHORT).show();
 
                 Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                intent.putExtra("DestinationFragment", 2);
                 startActivity(intent);
             }
         });
