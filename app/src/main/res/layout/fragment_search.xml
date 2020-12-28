@@ -4,27 +4,41 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".HomeFragment">
+    tools:context=".DonationsReceivedFragment">
 
     <include
-        android:id="@+id/search_organisation_action_bar"
-        layout="@layout/search_organisation_action_bar"
-        tools:layout_editor_absoluteX="-16dp"
-        tools:layout_editor_absoluteY="-356dp" />
+        android:id="@+id/donations_received_action_bar"
+        layout="@layout/donations_received_action_bar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize" />
 
-    <Button
-        android:id="@+id/searchOnMap"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:id="@+id/linearLayout3"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="SEARCH"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@+id/search_organisation_action_bar"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="32dp"
+        android:layout_marginEnd="16dp"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/search_organisation_action_bar"
-        android:background="@drawable/custom_color_accent_mid_button"/>
-    />
+        app:layout_constraintTop_toBottomOf="@+id/donations_received_action_bar">
 
+        <Button
+            android:id="@+id/searchOnMap"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/custom_color_primary_light_button"
+            android:text="Search organisation" />
+    </LinearLayout>
 
-
+    <ListView
+        android:id="@+id/LVDonations"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout3"></ListView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

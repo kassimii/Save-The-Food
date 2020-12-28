@@ -12,10 +12,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ListView;
 
 public class SearchFragment extends Fragment {
 
     private Button searchButton;
+    private ListView listView;
     public SearchFragment() {
         // Required empty public constructor
     }
@@ -28,6 +30,7 @@ public class SearchFragment extends Fragment {
         View v= inflater.inflate(R.layout.fragment_search, container, false);
 
         searchButton= (Button) v.findViewById(R.id.searchOnMap);
+        listView=(ListView) v.findViewById(R.id.LVDonations);
 
         searchButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -39,5 +42,6 @@ public class SearchFragment extends Fragment {
 
         return v;
     }
+
     
 }

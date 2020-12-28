@@ -1,5 +1,6 @@
 package com.savethefood;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -30,7 +31,7 @@ public class ProfileFragment extends Fragment implements RequestDialog.OnInputSe
     private View view;
     private EditText EProfileName;
     private TextView TTodaysPersons, TTodaysSpecial;
-    private Button BUpdateProfile, BChangeTodaysRequest;
+    private Button BUpdateProfile, BChangeTodaysRequest,BChangeLocation;
     private LinearLayout l4, l5, l6, l7;
 
     private String nameFromDB, personsTodaysRequestFromDB, specialTodaysRequestFromDB, nameEdited, timeStamp, receivedNumberOfPersons, receivedSpecialRequest;
@@ -68,6 +69,7 @@ public class ProfileFragment extends Fragment implements RequestDialog.OnInputSe
         TTodaysPersons = (TextView)view.findViewById(R.id.TTodaysPersons);
         TTodaysSpecial = (TextView)view.findViewById(R.id.TTodaysSpecial);
         BChangeTodaysRequest = (Button) view.findViewById(R.id.BChangeTodaysRequest);
+        BChangeLocation=(Button) view.findViewById(R.id.changeLocation);
 
         l4 = (LinearLayout)view.findViewById(R.id.linearLayout4);
         l5 = (LinearLayout)view.findViewById(R.id.linearLayout5);
@@ -79,6 +81,7 @@ public class ProfileFragment extends Fragment implements RequestDialog.OnInputSe
         databaseRef = FirebaseDatabase.getInstance().getReference().child("Users").child(userUID);
 
         showProfileInfo();
+        onChangeLocationButtonClick();
 
         return view;
     }
@@ -121,6 +124,16 @@ public class ProfileFragment extends Fragment implements RequestDialog.OnInputSe
                 }else{
                     Toast.makeText(getActivity(), "Already up to date!", Toast.LENGTH_SHORT).show();
                 }
+            }
+        });
+    }
+
+    public void onChangeLocationButtonClick(){
+        BChangeLocation.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(getActivity(), SetLocationOnMap.class);
+                startActivity(i);
             }
         });
     }
