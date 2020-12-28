@@ -12,29 +12,30 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.ListView;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.savethefood.model.Donation;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Iterator;
+import java.util.List;
 
 
 public class DonationsReceivedFragment extends Fragment implements RequestDialog.OnInputSelected {
     private Button BNewRequest;
     private String receivedNumberOfPersons, receivedSpecialRequest, timeStamp;
-    private ArrayList<Donation> donations = new ArrayList<>();
+    private List<Donation> donations = new ArrayList<>();
+    private DonationsAdaptor adapter;
     private ListView LVDonations;
 
     private FirebaseAuth fAuth;
@@ -117,46 +118,55 @@ public class DonationsReceivedFragment extends Fragment implements RequestDialog
         });
     }
 
-    private static class Donation{
-        public String donationUID, to, from, restaurant, when, what, status;
-
-        public Donation(String donationUID, String to, String from, String restaurant, String when, String what, String status){
-            this.donationUID = donationUID;
-            this.to = to;
-            this.from = from;
-            this.restaurant = restaurant;
-            this.when = when;
-            this.what = what;
-            this.status = status;
-        }
-    }
-
     public void getDonations(){
         DatabaseReference donationsRef = FirebaseDatabase.getInstance().getReference().child("Donations");
-        donationsRef.addValueEventListener(new ValueEventListener() {
+        donationsRef.addChildEventListener(new ChildEventListener() {
             @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                Iterator<DataSnapshot> items = snapshot.getChildren().iterator();
+            public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+                try {
+                    Donation donation = snapshot.getValue(Donation.class);
+                    donation.donationUID  = snapshot.getKey();
+                    String to;
 
-                while(items.hasNext()){
-                    DataSnapshot item = items.next();
-                    String donationUID, to, from, restaurant, when, what, status;
-                    to = item.child("To").getValue().toString();
+                    to = donation.To;
                     if(to.equals(userUID)){
-                        donationUID = item.getKey().toString();
-                        from = item.child("From").getValue().toString();
-                        restaurant = item.child("Restaurant").getValue().toString();
-                        when = item.child("When").getValue().toString();
-                        what = item.child("What").getValue().toString();
-                        status = item.child("Status").getValue().toString();
-                    }else {
-                        continue;
+                        donations.add(donation);
                     }
-                    Donation donation = new Donation(donationUID, to, from, restaurant, when, what, status);
-                    donations.add(donation);
-                }
 
-                showDonations();
+                    showDonations();
+                    adapter.notifyDataSetChanged();
+                }catch (Exception e){
+                    Toast.makeText(getContext(), e.getMessage().toString(), Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onChildChanged(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+                for (int i = 0; i < donations.size(); i++) {
+                    if (donations.get(i).donationUID.equals(snapshot.getKey().toString()))
+                        try {
+                            Donation updateDonation = snapshot.getValue(Donation.class);
+
+                            donations.set(i, updateDonation);
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                }
+                adapter.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onChildRemoved(@NonNull DataSnapshot snapshot) {
+                for (int i = 0; i < donations.size(); i++) {
+                    if (donations.get(i).donationUID.equals(snapshot.getKey()))
+                        donations.remove(i);
+                }
+                adapter.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onChildMoved(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+
             }
 
             @Override
@@ -168,57 +178,23 @@ public class DonationsReceivedFragment extends Fragment implements RequestDialog
     }
 
     public void showDonations(){
-
-        CustomAdapter customAdapter = new CustomAdapter();
-        LVDonations.setAdapter(customAdapter);
+        adapter = new DonationsAdaptor(getContext(), R.layout.donations_row_data, donations);
+        LVDonations.setAdapter(adapter);
 
         LVDonations.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Intent intent = new Intent(getActivity(), DonationDetails.class);
                 intent.putExtra("DonationUID", donations.get(position).donationUID);
-                intent.putExtra("Restaurant", donations.get(position).restaurant);
-                intent.putExtra("What", donations.get(position).what);
-                intent.putExtra("When", donations.get(position).when);
-                intent.putExtra("Status", donations.get(position).status);
+                intent.putExtra("Restaurant", donations.get(position).Restaurant);
+                intent.putExtra("What", donations.get(position).What);
+                intent.putExtra("When", donations.get(position).When);
+                intent.putExtra("Status", donations.get(position).Status);
 
                 startActivity(intent);
             }
         });
 
-    }
-
-    private class CustomAdapter extends BaseAdapter{
-
-        @Override
-        public int getCount() {
-            return donations.size();
-        }
-
-        @Override
-        public Object getItem(int position) {
-            return null;
-        }
-
-        @Override
-        public long getItemId(int position) {
-            return 0;
-        }
-
-        @Override
-        public View getView(int position, View convertView, ViewGroup parent) {
-            View donationRowView = getLayoutInflater().inflate(R.layout.donations_row_data, null);
-
-            TextView TVFromRow = (TextView) donationRowView.findViewById(R.id.TVFromRow);
-            TextView TVWhatRow = (TextView) donationRowView.findViewById(R.id.TVWhatRow);
-            TextView TVStatus = (TextView) donationRowView.findViewById(R.id.TVStatus);
-
-            TVFromRow.setText(donations.get(position).restaurant);
-            TVWhatRow.setText(donations.get(position).what);
-            TVStatus.setText(donations.get(position).status);
-
-            return donationRowView;
-        }
     }
 
 }

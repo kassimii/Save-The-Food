@@ -39,7 +39,7 @@ public class  MainActivity extends AppCompatActivity {
 
         Intent intent = getIntent();
         int destinationFragment = intent.getIntExtra("DestinationFragment", 0);
-        if(intent.getCategories().equals(null)){
+        if(intent.getCategories()==null){
             switch(destinationFragment)
             {
                 case 2:
