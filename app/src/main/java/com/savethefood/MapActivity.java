@@ -88,7 +88,7 @@ public class MapActivity extends FragmentActivity implements OnMapReadyCallback 
 
                     if (typeOfUser.equals("organisation")) {
 
-                        if(item.child("Received today").getValue().toString().equals("NO")) {
+                        if(item.child("Requests").hasChild(timeStamp)&&item.child("Requests").child(timeStamp).child("Received today").getValue().toString().equals("NO")) {
                             //item.child("Requests").hasChild(timeStamp)
 
                             latitude = item.child("Location").child("Latitude").getValue(Double.class);

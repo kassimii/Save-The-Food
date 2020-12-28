@@ -48,6 +48,7 @@ public class ProfileFragment extends Fragment implements RequestDialog.OnInputSe
         databaseRef.child("Requests").child(timeStamp).child("Number of persons").setValue(receivedNumberOfPersons);
         databaseRef.child("Requests").child(timeStamp).child("Special request").setValue(receivedSpecialRequest);
 
+
         Toast.makeText(getActivity(), "Request changed", Toast.LENGTH_SHORT).show();
 
     }
