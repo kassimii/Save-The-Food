@@ -30,11 +30,11 @@ import java.util.Calendar;
 
 public class OrganisationProfileFragment extends Fragment implements RequestDialog.OnInputSelected{
     private View view;
-    private EditText EProfileName;
+    private EditText EProfileName, EProfileAddress;
     private TextView TTodaysPersons, TTodaysSpecial;
     private Button BUpdateProfile, BChangeTodaysRequest;
 
-    private String nameFromDB, personsTodaysRequestFromDB, specialTodaysRequestFromDB, nameEdited, timeStamp, receivedNumberOfPersons, receivedSpecialRequest;
+    private String nameFromDB, addressFromDB="", personsTodaysRequestFromDB, specialTodaysRequestFromDB, nameEdited, addressEdited, timeStamp, receivedNumberOfPersons, receivedSpecialRequest;
 
     private FirebaseAuth fAuth; //1
     private DatabaseReference databaseRef;
@@ -66,6 +66,7 @@ public class OrganisationProfileFragment extends Fragment implements RequestDial
         timeStamp = new SimpleDateFormat("dd MM yyyy").format(Calendar.getInstance().getTime());
 
         EProfileName = (EditText) view.findViewById(R.id.profile_name);
+        EProfileAddress = (EditText) view.findViewById(R.id.profile_address);
         BUpdateProfile = (Button) view.findViewById(R.id.BUpdateProfile);
         TTodaysPersons = (TextView)view.findViewById(R.id.TTodaysPersons);
         TTodaysSpecial = (TextView)view.findViewById(R.id.TTodaysSpecial);
@@ -95,8 +96,13 @@ public class OrganisationProfileFragment extends Fragment implements RequestDial
         reference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                nameFromDB = dataSnapshot.child("Name").getValue().toString();//1
+                nameFromDB = dataSnapshot.child("Name").getValue().toString();
                 EProfileName.setText(nameFromDB);
+                if(dataSnapshot.hasChild("Address")){
+                    addressFromDB = dataSnapshot.child("Address").getValue().toString();
+                    EProfileAddress.setText(addressFromDB);
+                }
+
 
                 if(dataSnapshot.child("Requests").hasChild(timeStamp)){
                     personsTodaysRequestFromDB = dataSnapshot.child("Requests").child(timeStamp).child("Number of persons").getValue().toString();
@@ -123,9 +129,11 @@ public class OrganisationProfileFragment extends Fragment implements RequestDial
             @Override
             public void onClick(View v) {
                 nameEdited = EProfileName.getText().toString().trim();
-                if(!nameEdited.equals(nameFromDB)){
+                addressEdited = EProfileAddress.getText().toString().trim();
+                if(!nameEdited.equals(nameFromDB) || !addressEdited.equals(addressFromDB)){
                     databaseRef = FirebaseDatabase.getInstance().getReference().child("Users").child(userUID);
                     databaseRef.child("Name").setValue(nameEdited);
+                    databaseRef.child("Address").setValue(addressEdited);
                     Toast.makeText(getActivity(), "Profile updated!", Toast.LENGTH_SHORT).show();
                 }else{
                     Toast.makeText(getActivity(), "Already up to date!", Toast.LENGTH_SHORT).show();
