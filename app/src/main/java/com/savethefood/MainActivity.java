@@ -45,6 +45,10 @@ public class  MainActivity extends AppCompatActivity {
                 case 2:
                     getSupportFragmentManager().beginTransaction().replace(R.id.container, new DonationsReceivedFragment()).commit();
                     break;
+
+                case 3:
+                    getSupportFragmentManager().beginTransaction().replace(R.id.container, new ProfileFragment()).commit();
+                    break;
             }
         }
     }

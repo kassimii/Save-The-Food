@@ -55,7 +55,7 @@
                 android:textColor="@color/colorPrimaryLight"
                 android:textSize="14sp" />
 
-            <EditText
+            <TextView
                 android:id="@+id/location"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -83,7 +83,7 @@
                 android:textColor="@color/colorPrimaryLight"
                 android:textSize="14sp" />
 
-            <EditText
+            <TextView
                 android:id="@+id/number"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -111,7 +111,7 @@
                 android:textColor="@color/colorPrimaryLight"
                 android:textSize="14sp" />
 
-            <EditText
+            <TextView
                 android:id="@+id/needs"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -140,7 +140,7 @@
             android:textColor="@color/colorPrimaryLight"
             android:textSize="14sp" />
 
-        <EditText
+        <TextView
             android:id="@+id/what"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
