@@ -66,6 +66,7 @@
             android:layout_weight="3"
             android:background="@drawable/custom_color_accent_button"
             android:text="Change location"
+            android:id="@+id/changeLocation"
             />
     </LinearLayout>
 

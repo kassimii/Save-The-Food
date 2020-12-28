@@ -50,6 +50,7 @@ public class DonationsReceivedFragment extends Fragment implements RequestDialog
 
         databaseRef.child("Requests").child(timeStamp).child("Number of persons").setValue(receivedNumberOfPersons);
         databaseRef.child("Requests").child(timeStamp).child("Special request").setValue(receivedSpecialRequest);
+        databaseRef.child("Requests").child(timeStamp).child("Received today").setValue("NO");
 
         Toast.makeText(getActivity(), "Request registered.", Toast.LENGTH_SHORT).show();
     }

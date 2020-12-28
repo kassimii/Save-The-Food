@@ -33,7 +33,9 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Iterator;
 
 public class MapActivity extends FragmentActivity implements OnMapReadyCallback {
@@ -47,6 +49,7 @@ public class MapActivity extends FragmentActivity implements OnMapReadyCallback 
     private double latitude;
     private double longitude;
     private String name;
+    private String timeStamp;
 
 
     private int ACCESS_LOCATION_REQUEST_CODE = 10001;
@@ -62,6 +65,7 @@ public class MapActivity extends FragmentActivity implements OnMapReadyCallback 
         mapFragment.getMapAsync(this);
 
         fAuth = FirebaseAuth.getInstance();
+        timeStamp = new SimpleDateFormat("dd MM yyyy").format(Calendar.getInstance().getTime());
 
         //fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this);
 
@@ -84,12 +88,16 @@ public class MapActivity extends FragmentActivity implements OnMapReadyCallback 
 
                     if (typeOfUser.equals("organisation")) {
 
-                        latitude = item.child("Location").child("Latitude").getValue(Double.class);
-                        longitude = item.child("Location").child("Longitude").getValue(Double.class);
-                        name = item.child("Name").getValue().toString();
+                        if(item.child("Received today").getValue().toString().equals("NO")) {
+                            //item.child("Requests").hasChild(timeStamp)
 
-                        LatLng location=new LatLng(latitude,longitude);
-                        mMap.addMarker(new MarkerOptions().position(location).title(String.valueOf(name)));
+                            latitude = item.child("Location").child("Latitude").getValue(Double.class);
+                            longitude = item.child("Location").child("Longitude").getValue(Double.class);
+                            name = item.child("Name").getValue().toString();
+
+                            LatLng location = new LatLng(latitude, longitude);
+                            mMap.addMarker(new MarkerOptions().position(location).title(String.valueOf(name)));
+                        }
 
 
                     }
@@ -137,8 +145,9 @@ public class MapActivity extends FragmentActivity implements OnMapReadyCallback 
 
                 Intent i = new Intent(MapActivity.this, DetailsActivity.class);
 
-               //i.putExtra("title", markerTitle); //passing title to the new Activity
+               i.putExtra("title", markerTitle); //passing title to the new Activity
                startActivity(i);
+               finish();
 
                 return false;
             }
