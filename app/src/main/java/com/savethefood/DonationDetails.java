@@ -15,19 +15,25 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+
 public class DonationDetails extends AppCompatActivity {
     private TextView TVFrom, TVWhat, TVWhen;
     private Button BConfirmDonationReceived;
     private String donationStatus;
 
     private FirebaseAuth fAuth;
-    private DatabaseReference databaseRef;
+    private DatabaseReference databaseRef,receivedRef;
     private String userUID, donationUID;
+    private String timeStamp;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_donation_details);
+
+        timeStamp = new SimpleDateFormat("dd MM yyyy").format(Calendar.getInstance().getTime());
 
         initializeDatabaseConstants();
         initializeComponents();
@@ -39,6 +45,7 @@ public class DonationDetails extends AppCompatActivity {
         fAuth = FirebaseAuth.getInstance();
         userUID = fAuth.getCurrentUser().getUid();
         databaseRef = FirebaseDatabase.getInstance().getReference().child("Donations");
+        receivedRef=FirebaseDatabase.getInstance().getReference().child("Users").child(userUID).child("Requests").child(timeStamp);
     }
 
     public void initializeComponents(){
@@ -67,6 +74,7 @@ public class DonationDetails extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 databaseRef.child(donationUID).child("Status").setValue("Received");
+                receivedRef.child("Received today").setValue("YES");
                 Toast.makeText(DonationDetails.this, "Changed donation status.", Toast.LENGTH_SHORT).show();
 
                 Intent intent = new Intent(getApplicationContext(), MainActivity.class);

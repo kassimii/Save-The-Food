@@ -5,19 +5,43 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.Toast;
+
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.ChildEventListener;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.savethefood.model.Donation;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class SearchFragment extends Fragment {
 
     private Button searchButton;
     private ListView listView;
+
+    private FirebaseAuth fAuth;
+    private DatabaseReference databaseRef;
+    private String userUID;
+
+    private List<Donation> donations = new ArrayList<>();
+    private DonationsAdaptor adapter;
+   // private ListView LVDonations;
+
     public SearchFragment() {
         // Required empty public constructor
     }
@@ -40,7 +64,72 @@ public class SearchFragment extends Fragment {
             }
         });
 
+        initializeDatabaseConstants();
+
+        getDonations();
+
         return v;
+    }
+
+    public void initializeDatabaseConstants(){
+        fAuth = FirebaseAuth.getInstance();
+        userUID = fAuth.getCurrentUser().getUid();
+        databaseRef = FirebaseDatabase.getInstance().getReference().child("Users").child(userUID);
+    }
+    public void showDonations(){
+        adapter = new DonationsAdaptor(getContext(), R.layout.donations_row_data, donations);
+        listView.setAdapter(adapter);
+
+
+    }
+
+    public void getDonations(){
+        DatabaseReference donationsRef = FirebaseDatabase.getInstance().getReference().child("Donations");
+        donationsRef.addChildEventListener(new ChildEventListener() {
+            @Override
+            public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+                try {
+                    Donation donation = snapshot.getValue(Donation.class);
+                    donation.donationUID  = snapshot.getKey();
+                    String from;
+
+                    from = donation.From;
+                    if(from.equals(userUID)){
+                        donations.add(donation);
+                    }
+
+                    showDonations();
+                    adapter.notifyDataSetChanged();
+                }catch (Exception e){
+                    Toast.makeText(getContext(), e.getMessage().toString(), Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onChildChanged(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+
+            }
+
+            @Override
+            public void onChildRemoved(@NonNull DataSnapshot snapshot) {
+                for (int i = 0; i < donations.size(); i++) {
+                    if (donations.get(i).donationUID.equals(snapshot.getKey()))
+                        donations.remove(i);
+                }
+                adapter.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onChildMoved(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
     }
 
     

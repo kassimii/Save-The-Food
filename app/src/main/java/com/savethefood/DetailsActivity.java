@@ -29,7 +29,10 @@ import java.util.UUID;
 public class DetailsActivity extends AppCompatActivity {
 
     TextView markerTitle;
-    EditText numberText,needsText,locationText,whatText;
+    TextView numberText;
+    TextView needsText;
+    TextView locationText;
+    TextView whatText;
     Button donateButton;
 
     private FirebaseAuth fAuth;
@@ -57,11 +60,11 @@ public class DetailsActivity extends AppCompatActivity {
         timeStamp = new SimpleDateFormat("dd MM yyyy").format(Calendar.getInstance().getTime());
 
         markerTitle=findViewById(R.id.marker);
-        numberText=(EditText)findViewById(R.id.number);
-        needsText=(EditText)findViewById(R.id.needs);
-        locationText=(EditText)findViewById(R.id.location);
+        numberText=(TextView) findViewById(R.id.number);
+        needsText=(TextView) findViewById(R.id.needs);
+        locationText=(TextView) findViewById(R.id.location);
         donateButton=(Button)findViewById(R.id.toDonate);
-        whatText=(EditText)findViewById(R.id.what);
+        whatText=(TextView)findViewById(R.id.what);
 
         title=getIntent().getStringExtra("title");
         markerTitle.setText(title);
@@ -90,8 +93,8 @@ public class DetailsActivity extends AppCompatActivity {
 
                         if(item.child("Requests").hasChild(timeStamp)) {
 
-                           // address=item.child("Address").getValue().toString();
-                            // locationText.setText(address);
+                           address=item.child("Address").getValue().toString();
+                           locationText.setText(address);
 
 
                             nrOfPers = item.child("Requests").child(timeStamp).child("Number of persons").getValue().toString();
