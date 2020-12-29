@@ -12,13 +12,12 @@ import com.savethefood.model.Donation;
 
 import java.util.List;
 
-public class DonationsAdaptor extends ArrayAdapter<Donation> {
-
+public class DonationsRestaurantAdaptor extends ArrayAdapter<Donation> {
     private Context context;
     private List<Donation> donations;
     private int layoutResID;
 
-    public DonationsAdaptor(Context context, int layoutResourceID, List<Donation> donations) {
+    public DonationsRestaurantAdaptor(Context context, int layoutResourceID, List<Donation> donations) {
         super(context, layoutResourceID, donations);
         this.context = context;
         this.donations = donations;
@@ -36,7 +35,7 @@ public class DonationsAdaptor extends ArrayAdapter<Donation> {
             itemHolder = new ItemHolder();
 
             view = inflater.inflate(layoutResID, parent, false);
-            itemHolder.TVFromRow = (TextView) view.findViewById(R.id.TVFromRow);
+            itemHolder.TVToRow = (TextView) view.findViewById(R.id.TVToRow);
             itemHolder.TVWhatRow = (TextView) view.findViewById(R.id.TVWhatRow);
             itemHolder.TVStatus = (TextView) view.findViewById(R.id.TVStatus);
             itemHolder.TVDate = (TextView) view.findViewById(R.id.TVDate);
@@ -49,7 +48,7 @@ public class DonationsAdaptor extends ArrayAdapter<Donation> {
 
         final Donation dItem = donations.get(position);
 
-        itemHolder.TVFromRow.setText(dItem.Restaurant);
+        itemHolder.TVToRow.setText(dItem.Organisation);
         itemHolder.TVWhatRow.setText(dItem.What);
         itemHolder.TVStatus.setText(dItem.Status);
         itemHolder.TVDate.setText(dItem.When);
@@ -58,10 +57,9 @@ public class DonationsAdaptor extends ArrayAdapter<Donation> {
     }
 
     private static class ItemHolder {
-        TextView TVFromRow;
+        TextView TVToRow;
         TextView TVWhatRow;
         TextView TVStatus;
         TextView TVDate;
     }
-
 }

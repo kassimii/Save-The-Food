@@ -39,8 +39,7 @@ public class SearchFragment extends Fragment {
     private String userUID;
 
     private List<Donation> donations = new ArrayList<>();
-    private DonationsAdaptor adapter;
-   // private ListView LVDonations;
+    private DonationsRestaurantAdaptor adapter;
 
     public SearchFragment() {
         // Required empty public constructor
@@ -77,7 +76,7 @@ public class SearchFragment extends Fragment {
         databaseRef = FirebaseDatabase.getInstance().getReference().child("Users").child(userUID);
     }
     public void showDonations(){
-        adapter = new DonationsAdaptor(getContext(), R.layout.donations_row_data, donations);
+        adapter = new DonationsRestaurantAdaptor(getContext(), R.layout.donations_restaurant_row_data, donations);
         listView.setAdapter(adapter);
 
 

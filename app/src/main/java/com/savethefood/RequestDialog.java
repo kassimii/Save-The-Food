@@ -70,6 +70,7 @@ public class RequestDialog extends DialogFragment {
                     ENumberOfPersons.setText(personsTodaysRequestFromDB);
                     ESpecialRequest.setText(specialTodaysRequestFromDB);
                 }
+
             }
 
             @Override
