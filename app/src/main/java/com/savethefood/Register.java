@@ -12,6 +12,7 @@ import android.location.Geocoder;
 import android.location.Location;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -63,7 +64,7 @@ public class Register extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
-        fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this);
+        fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(Register.this);
 
         initializeComponents();
 
@@ -99,7 +100,14 @@ public class Register extends AppCompatActivity {
         BLocation.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                getCoordinates();
+
+                if (ActivityCompat.checkSelfPermission(Register.this,
+                        Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED &&
+                        ActivityCompat.checkSelfPermission(Register.this, Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
+                    getLocation();
+                } else {
+                    ActivityCompat.requestPermissions(Register.this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 44);
+                }
             }
         });
     }
@@ -132,9 +140,11 @@ public class Register extends AppCompatActivity {
                     return;
                 }
 
-                if(longitude == 2000 || latitude == 2000){
+                if (longitude == 2000 || latitude == 2000) {
                     Toast.makeText(Register.this, "Please select your location", Toast.LENGTH_SHORT).show();
                     return;
+                }else{
+                    Toast.makeText(Register.this, "Location saved!", Toast.LENGTH_SHORT).show();
                 }
 
                 progressBar.setVisibility(View.VISIBLE);
@@ -196,15 +206,6 @@ public class Register extends AppCompatActivity {
         });
     }
 
-    public void getCoordinates() {
-        //check permission
-        if (ActivityCompat.checkSelfPermission(Register.this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED &&ActivityCompat.checkSelfPermission(Register.this,Manifest.permission.ACCESS_COARSE_LOCATION)==PackageManager.PERMISSION_GRANTED) {
-            //when permission is granted
-            getLocation();
-        }else{
-            ActivityCompat.requestPermissions(Register.this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION,Manifest.permission.ACCESS_COARSE_LOCATION}, 100);
-        }
-    }
 
     private void getLocation() {
 
@@ -218,6 +219,7 @@ public class Register extends AppCompatActivity {
             // for ActivityCompat#requestPermissions for more details.
             return;
         }
+
         fusedLocationProviderClient.getLastLocation().addOnCompleteListener(new OnCompleteListener<Location>() {
             @Override
             public void onComplete(@NonNull Task<Location> task) {

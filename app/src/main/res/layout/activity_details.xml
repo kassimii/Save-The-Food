@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".DetailsActivity"
-    android:background="@color/colorPrimaryMid">
+    android:background="@color/colorPrimaryDark">
 
 
     <LinearLayout
@@ -16,7 +16,7 @@
         android:layout_marginTop="70dp"
         android:layout_marginEnd="20dp"
         android:layout_marginBottom="300dp"
-        android:background="@android:color/white"
+        android:background="@color/colorPrimaryLight"
         android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -28,12 +28,14 @@
         <TextView
             android:id="@+id/marker"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
+            android:layout_height="110dp"
             android:layout_centerInParent="true"
+            android:layout_weight="1"
             android:text="TextView"
             android:textAlignment="center"
-            android:textSize="28sp"/>
+            android:textColor="@color/colorAccentDark"
+            android:textSize="28sp"
+            android:textStyle="bold" />
 
         <LinearLayout
             android:id="@+id/layoutLocation"
@@ -52,16 +54,18 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="6"
                 android:text="Address"
-                android:textColor="@color/colorPrimaryLight"
-                android:textSize="14sp" />
+                android:textColor="@color/colorPrimaryDark"
+                android:textSize="20sp"
+                android:textStyle="bold"/>
 
             <TextView
                 android:id="@+id/location"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="3"
-                android:textColor="@color/colorPrimaryLight"
-                android:textSize="14sp" />
+                android:textColor="@color/colorAccentMid"
+                android:textSize="20sp"
+                android:textStyle="bold"/>
         </LinearLayout>
         <LinearLayout
             android:id="@+id/layoutNumber"
@@ -80,16 +84,18 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="6"
                 android:text="Number of people"
-                android:textColor="@color/colorPrimaryLight"
-                android:textSize="14sp" />
+                android:textColor="@color/colorPrimaryDark"
+                android:textSize="18sp"
+                android:textStyle="bold"/>
 
             <TextView
                 android:id="@+id/number"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="3"
-                android:textColor="@color/colorPrimaryLight"
-                android:textSize="14sp" />
+                android:textColor="@color/colorAccentMid"
+                android:textSize="20sp"
+                android:textStyle="bold"/>
         </LinearLayout>
         <LinearLayout
             android:id="@+id/layoutNeeds"
@@ -108,16 +114,18 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="6"
                 android:text="Special needs"
-                android:textColor="@color/colorPrimaryLight"
-                android:textSize="14sp" />
+                android:textColor="@color/colorPrimaryDark"
+                android:textSize="20sp"
+                android:textStyle="bold"/>
 
             <TextView
                 android:id="@+id/needs"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="3"
-                android:textColor="@color/colorPrimaryLight"
-                android:textSize="14sp" />
+                android:textColor="@color/colorAccentMid"
+                android:textSize="20sp"
+                android:textStyle="bold"/>
         </LinearLayout>
     </LinearLayout>
     <LinearLayout
@@ -137,16 +145,18 @@
             android:layout_height="wrap_content"
             android:layout_weight="6"
             android:text="What we donate"
-            android:textColor="@color/colorPrimaryLight"
-            android:textSize="14sp" />
+            android:textColor="@color/colorAccent"
+            android:textSize="16sp"
+            android:textStyle="bold"/>
 
-        <TextView
+        <EditText
             android:id="@+id/what"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="3"
-            android:textColor="@color/colorPrimaryLight"
-            android:textSize="14sp" />
+            android:textColor="@color/colorAccentMid"
+            android:textSize="16sp"
+            android:textStyle="bold"/>
     </LinearLayout>
 
     <Button
@@ -157,6 +167,8 @@
         android:layout_marginTop="2dp"
         android:layout_marginBottom="50dp"
         android:text="donate"
+        android:textColor="@color/colorPrimaryDark"
+        android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
