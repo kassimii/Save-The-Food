@@ -1,7 +1,5 @@
 package com.savethefood;
 
-//OrganisationProfileFragment
-
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -14,7 +12,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -36,7 +33,7 @@ public class OrganisationProfileFragment extends Fragment implements RequestDial
 
     private String nameFromDB, addressFromDB="", personsTodaysRequestFromDB, specialTodaysRequestFromDB, nameEdited, addressEdited, timeStamp, receivedNumberOfPersons, receivedSpecialRequest;
 
-    private FirebaseAuth fAuth; //1
+    private FirebaseAuth fAuth;
     private DatabaseReference databaseRef;
     private String userUID;
 
