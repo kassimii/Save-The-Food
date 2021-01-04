@@ -65,6 +65,7 @@ public class DetailsActivity extends AppCompatActivity {
         whatText=(EditText)findViewById(R.id.what);
 
         title=getIntent().getStringExtra("title");
+        organisationID=getIntent().getStringExtra("uid");
         markerTitle.setText(title);
 
         getDetailsFromFirebase();
@@ -84,10 +85,9 @@ public class DetailsActivity extends AppCompatActivity {
                 while (items.hasNext()) {
                     DataSnapshot item = items.next();
 
-                    nameOfUser = item.child("Name").getValue().toString();
 
-                    if (nameOfUser.equals(title)) {
-                        organisationID=item.getKey();
+
+                    if (organisationID.equals(item.getKey())) {
 
                         if(item.child("Requests").hasChild(timeStamp)) {
 

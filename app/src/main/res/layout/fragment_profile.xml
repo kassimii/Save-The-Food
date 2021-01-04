@@ -67,6 +67,7 @@
             android:background="@drawable/custom_color_accent_button"
             android:text="Change location"
             android:id="@+id/changeLocation"
+            android:textColor="@color/colorPrimaryDark"
             />
     </LinearLayout>
 
@@ -87,7 +88,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@drawable/custom_color_accent_dark_button"
-            android:text="Update profile" />
+            android:text="Update profile"
+            android:textColor="@color/colorPrimaryDark"/>
     </LinearLayout>
 
 

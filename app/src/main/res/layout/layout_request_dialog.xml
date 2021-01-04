@@ -16,6 +16,7 @@
             android:textAlignment="center"
             android:textSize="24dp"
             android:textColor="@color/colorPrimaryDark"
+            android:textStyle="bold"
             />
     </LinearLayout>
 
@@ -29,7 +30,7 @@
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="16dp"
-        android:layout_below="@id/linearLayout1"/>
+        android:layout_below="@id/linearLayout1" />
 
     <EditText
         android:id="@+id/ESpecialRequest"
@@ -59,6 +60,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="Cancel"
+            android:textStyle="bold"
             android:textAlignment="center"
             android:textColor="@color/colorPrimaryDark"
             android:textSize="24sp" />
@@ -69,6 +71,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="Add"
+            android:textStyle="bold"
             android:textAlignment="center"
             android:textColor="@color/colorPrimaryDark"
             android:textSize="24sp" />

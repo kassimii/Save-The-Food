@@ -107,7 +107,8 @@
         android:layout_marginTop="16dp"
         android:layout_marginEnd="16dp"
         android:text="I have received this donation"
-        android:background="@drawable/custom_color_primary_light_button"
+        android:background="@color/colorAccentDark"
+        android:textColor="@color/colorPrimaryDark"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/linearLayout3" />

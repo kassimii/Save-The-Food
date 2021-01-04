@@ -26,8 +26,9 @@
             android:id="@+id/searchOnMap"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@drawable/custom_color_primary_light_button"
-            android:text="SEARCH ORGANISATION" />
+            android:background="@color/colorAccentDark"
+            android:text="SEARCH ORGANISATION"
+            android:textColor="@color/colorPrimaryDark"/>
     </LinearLayout>
 
     <ListView

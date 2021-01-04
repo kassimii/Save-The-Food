@@ -50,6 +50,7 @@ public class MapActivity extends FragmentActivity implements OnMapReadyCallback 
     private double longitude;
     private String name;
     private String timeStamp;
+    private String organisationUID;
 
 
     private int ACCESS_LOCATION_REQUEST_CODE = 10001;
@@ -88,15 +89,19 @@ public class MapActivity extends FragmentActivity implements OnMapReadyCallback 
 
                     if (typeOfUser.equals("organisation")) {
 
-                        if(item.child("Requests").hasChild(timeStamp)&&item.child("Requests").child(timeStamp).child("Received today").getValue().toString().equals("NO")) {
-                            //item.child("Requests").hasChild(timeStamp)
+                        if(item.child("Requests").hasChild(timeStamp)) {
+                            if(item.child("Requests").child(timeStamp).child("Received today").getValue().toString().equals("NO")) {
+                                //item.child("Requests").hasChild(timeStamp)
 
-                            latitude = item.child("Location").child("Latitude").getValue(Double.class);
-                            longitude = item.child("Location").child("Longitude").getValue(Double.class);
-                            name = item.child("Name").getValue().toString();
+                                latitude = item.child("Location").child("Latitude").getValue(Double.class);
+                                longitude = item.child("Location").child("Longitude").getValue(Double.class);
+                                name = item.child("Name").getValue().toString();
+                                organisationUID=item.getKey();
 
-                            LatLng location = new LatLng(latitude, longitude);
-                            mMap.addMarker(new MarkerOptions().position(location).title(String.valueOf(name)));
+
+                                LatLng location = new LatLng(latitude, longitude);
+                                mMap.addMarker(new MarkerOptions().position(location).title(String.valueOf(name)));
+                            }
                         }
 
 
@@ -145,7 +150,9 @@ public class MapActivity extends FragmentActivity implements OnMapReadyCallback 
 
                 Intent i = new Intent(MapActivity.this, DetailsActivity.class);
 
-               i.putExtra("title", markerTitle); //passing title to the new Activity
+               i.putExtra("title", markerTitle);//passing title to the new Activity
+                i.putExtra("uid",organisationUID);
+
                startActivity(i);
                finish();
 
