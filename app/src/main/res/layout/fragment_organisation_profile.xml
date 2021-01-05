@@ -25,7 +25,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="6"
             android:text="Name"
-            android:textColor="@color/colorPrimaryLight"
+            android:textColor="@color/Dark"
             android:textSize="24sp" />
 
         <EditText
@@ -33,7 +33,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="3"
-            android:textColor="@color/colorPrimaryLight"
+            android:textColor="@color/Dark"
             android:textSize="24sp" />
     </LinearLayout>
 
@@ -51,7 +51,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="6"
             android:text="Address"
-            android:textColor="@color/colorPrimaryLight"
+            android:textColor="@color/Dark"
             android:textSize="24sp" />
 
         <EditText
@@ -59,7 +59,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="3"
-            android:textColor="@color/colorPrimaryLight"
+            android:textColor="@color/Dark"
             android:textSize="24sp" />
     </LinearLayout>
 
@@ -78,7 +78,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="6"
             android:text="Location"
-            android:textColor="@color/colorPrimaryLight"
+            android:textColor="@color/Dark"
             android:textSize="24sp" />
 
         <Button
@@ -86,8 +86,9 @@
             android:layout_height="wrap_content"
             android:paddingHorizontal="20dp"
             android:layout_weight="3"
-            android:background="@drawable/custom_color_accent_button"
+            android:background="@drawable/custom_color_light_green"
             android:text="Change location"
+            android:id="@+id/changeLocation"
             />
     </LinearLayout>
 
@@ -105,7 +106,7 @@
             android:id="@+id/BUpdateProfile"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@drawable/custom_color_accent_dark_button"
+            android:background="@drawable/custom_color_light_green"
             android:text="Update profile" />
     </LinearLayout>
 
@@ -124,7 +125,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="6"
             android:text="Today's request"
-            android:textColor="@color/colorPrimaryLight"
+            android:textColor="@color/Dark"
             android:textSize="24sp" />
 
     </LinearLayout>
@@ -145,7 +146,7 @@
             android:layout_weight="4"
             android:text="Number of persons"
             android:textAlignment="center"
-            android:textColor="@color/colorPrimaryLight"
+            android:textColor="@color/Dark"
             android:textSize="16sp" />
 
         <TextView
@@ -155,7 +156,7 @@
             android:layout_weight="3"
             android:text="0"
             android:textAlignment="center"
-            android:textColor="@color/colorPrimaryLight"
+            android:textColor="@color/Dark"
             android:textSize="16sp"/>
 
     </LinearLayout>
@@ -176,7 +177,7 @@
             android:layout_weight="4"
             android:text="Special requests"
             android:textAlignment="center"
-            android:textColor="@color/colorPrimaryLight"
+            android:textColor="@color/Dark"
             android:textSize="16sp" />
 
         <TextView
@@ -186,7 +187,7 @@
             android:layout_weight="3"
             android:text=""
             android:textAlignment="center"
-            android:textColor="@color/colorPrimaryLight"
+            android:textColor="@color/Dark"
             android:textSize="16sp"/>
 
     </LinearLayout>
@@ -205,7 +206,7 @@
             android:id="@+id/BChangeTodaysRequest"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@drawable/custom_color_primary_light_button"
+            android:background="@drawable/custom_color_light_purple"
             android:text="Change request for today" />
 
 

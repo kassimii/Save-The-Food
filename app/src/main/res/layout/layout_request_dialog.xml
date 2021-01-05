@@ -15,7 +15,7 @@
             android:text="Add special request"
             android:textAlignment="center"
             android:textSize="24dp"
-            android:textColor="@color/colorPrimaryDark"
+            android:textColor="@color/Dark"
             android:textStyle="bold"
             />
     </LinearLayout>
@@ -30,6 +30,7 @@
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="16dp"
+        android:textColor="@color/DarkGreen"
         android:layout_below="@id/linearLayout1" />
 
     <EditText
@@ -41,6 +42,7 @@
         android:layout_alignParentStart="true"
         android:layout_alignParentLeft="true"
         android:layout_marginStart="16dp"
+        android:textColor="@color/DarkGreen"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="16dp"/>
 
@@ -62,7 +64,7 @@
             android:text="Cancel"
             android:textStyle="bold"
             android:textAlignment="center"
-            android:textColor="@color/colorPrimaryDark"
+            android:textColor="@color/Dark"
             android:textSize="24sp" />
 
         <TextView
@@ -73,7 +75,7 @@
             android:text="Add"
             android:textStyle="bold"
             android:textAlignment="center"
-            android:textColor="@color/colorPrimaryDark"
+            android:textColor="@color/Dark"
             android:textSize="24sp" />
 
     </LinearLayout>

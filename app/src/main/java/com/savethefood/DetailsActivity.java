@@ -91,8 +91,11 @@ public class DetailsActivity extends AppCompatActivity {
 
                         if(item.child("Requests").hasChild(timeStamp)) {
 
-                           address=item.child("Address").getValue().toString();
-                           locationText.setText(address);
+                            if(item.hasChild("Address")) {
+
+                                address = item.child("Address").getValue().toString();
+                                locationText.setText(address);
+                            }
 
 
                             nrOfPers = item.child("Requests").child(timeStamp).child("Number of persons").getValue().toString();

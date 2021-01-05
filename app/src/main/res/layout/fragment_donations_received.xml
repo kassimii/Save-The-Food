@@ -26,7 +26,7 @@
             android:id="@+id/BNewRequest"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@drawable/custom_color_primary_light_button"
+            android:background="@drawable/custom_color_light_purple"
             android:text="New Request" />
     </LinearLayout>
 

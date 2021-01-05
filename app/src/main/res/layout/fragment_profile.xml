@@ -27,7 +27,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="6"
             android:text="Name"
-            android:textColor="@color/colorPrimaryLight"
+            android:textColor="@color/Dark"
             android:textSize="24sp" />
 
         <EditText
@@ -35,7 +35,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="3"
-            android:textColor="@color/colorPrimaryLight"
+            android:textColor="@color/Dark"
             android:textSize="24sp" />
     </LinearLayout>
 
@@ -56,7 +56,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="6"
             android:text="Location"
-            android:textColor="@color/colorPrimaryLight"
+            android:textColor="@color/Dark"
             android:textSize="24sp" />
 
         <Button
@@ -64,10 +64,10 @@
             android:layout_height="wrap_content"
             android:paddingHorizontal="20dp"
             android:layout_weight="3"
-            android:background="@drawable/custom_color_accent_button"
+            android:background="@drawable/custom_color_light_green"
             android:text="Change location"
             android:id="@+id/changeLocation"
-            android:textColor="@color/colorPrimaryDark"
+            android:textColor="@color/Dark"
             />
     </LinearLayout>
 
@@ -87,9 +87,9 @@
             android:id="@+id/BUpdateProfile"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@drawable/custom_color_accent_dark_button"
+            android:background="@drawable/custom_color_light_purple"
             android:text="Update profile"
-            android:textColor="@color/colorPrimaryDark"/>
+            android:textColor="@color/Dark"/>
     </LinearLayout>
 
 

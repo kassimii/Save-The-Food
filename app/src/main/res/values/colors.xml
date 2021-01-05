@@ -8,4 +8,13 @@
     <color name="colorPrimaryMid">#54B3BF</color>
     <color name="colorPrimaryDark">#2A5467</color>
     <color name="colorBackground">#CFCFCF</color>
+
+    <color name="DarkGreen">#2fadb3</color>
+    <color name="LightGreen">#2fadb3</color>
+    <color name="DarkPurple">#615795</color>
+    <color name="LightPurple">#7e75c5</color>
+    <color name="Light">#ffffff</color>
+    <color name="Dark">#232032</color>
+    <color name="LightLightGreen">#F0FAFB</color>
+
 </resources>

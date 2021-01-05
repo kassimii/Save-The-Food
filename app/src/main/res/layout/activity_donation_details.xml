@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorPrimaryDark"
+    android:background="@color/Light"
     tools:context=".DonationDetails">
 
     <include
@@ -29,7 +29,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="6"
             android:text="From"
-            android:textColor="@color/colorPrimaryLight"
+            android:textColor="@color/Dark"
             android:textSize="24sp" />
 
         <TextView
@@ -58,7 +58,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="6"
             android:text="What"
-            android:textColor="@color/colorPrimaryLight"
+            android:textColor="@color/Dark"
             android:textSize="24sp" />
 
         <TextView
@@ -87,7 +87,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="6"
             android:text="When"
-            android:textColor="@color/colorPrimaryLight"
+            android:textColor="@color/Dark"
             android:textSize="24sp" />
 
         <TextView
@@ -107,8 +107,8 @@
         android:layout_marginTop="16dp"
         android:layout_marginEnd="16dp"
         android:text="I have received this donation"
-        android:background="@color/colorAccentDark"
-        android:textColor="@color/colorPrimaryDark"
+        android:background="@drawable/custom_color_light_purple"
+        android:textColor="@color/Dark"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/linearLayout3" />

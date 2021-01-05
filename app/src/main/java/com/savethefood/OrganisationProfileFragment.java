@@ -1,5 +1,6 @@
 package com.savethefood;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -29,7 +30,7 @@ public class OrganisationProfileFragment extends Fragment implements RequestDial
     private View view;
     private EditText EProfileName, EProfileAddress;
     private TextView TTodaysPersons, TTodaysSpecial;
-    private Button BUpdateProfile, BChangeTodaysRequest;
+    private Button BUpdateProfile, BChangeTodaysRequest,BChangeLocation;
 
     private String nameFromDB, addressFromDB="", personsTodaysRequestFromDB, specialTodaysRequestFromDB, nameEdited, addressEdited, timeStamp, receivedNumberOfPersons, receivedSpecialRequest;
 
@@ -65,6 +66,7 @@ public class OrganisationProfileFragment extends Fragment implements RequestDial
         EProfileName = (EditText) view.findViewById(R.id.profile_name);
         EProfileAddress = (EditText) view.findViewById(R.id.profile_address);
         BUpdateProfile = (Button) view.findViewById(R.id.BUpdateProfile);
+        BChangeLocation = (Button) view.findViewById(R.id.changeLocation);
         TTodaysPersons = (TextView)view.findViewById(R.id.TTodaysPersons);
         TTodaysSpecial = (TextView)view.findViewById(R.id.TTodaysSpecial);
         BChangeTodaysRequest = (Button) view.findViewById(R.id.BChangeTodaysRequest);
@@ -77,6 +79,15 @@ public class OrganisationProfileFragment extends Fragment implements RequestDial
 
         return view;
     }
+    public void onChangeLocationButtonClick(){
+        BChangeLocation.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(getActivity(), SetLocationOnMap.class);
+                startActivity(i);
+            }
+        });
+    }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
@@ -85,6 +96,7 @@ public class OrganisationProfileFragment extends Fragment implements RequestDial
 
         onUpdateProfileButtonClick();
         changeTodaysRequest();
+        onChangeLocationButtonClick();
     }
 
     private void showProfileInfo() {

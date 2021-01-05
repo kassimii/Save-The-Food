@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".DetailsActivity"
-    android:background="@color/colorPrimaryDark">
+    android:background="@color/Light">
 
 
     <LinearLayout
@@ -16,45 +16,38 @@
         android:layout_marginTop="70dp"
         android:layout_marginEnd="20dp"
         android:layout_marginBottom="300dp"
-        android:background="@color/colorPrimaryLight"
+        android:background="#F0FAFB"
         android:orientation="vertical"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="1.0">
+        >
 
         <TextView
             android:id="@+id/marker"
             android:layout_width="match_parent"
-            android:layout_height="110dp"
+            android:layout_height="wrap_content"
             android:layout_centerInParent="true"
-            android:layout_weight="1"
             android:text="TextView"
             android:textAlignment="center"
-            android:textColor="@color/colorAccentDark"
+            android:textColor="@color/Dark"
             android:textSize="28sp"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            android:layout_marginTop="32dp"/>
 
         <LinearLayout
             android:id="@+id/layoutLocation"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
-            android:layout_marginTop="32dp"
             android:layout_marginEnd="16dp"
+            android:layout_marginTop="32dp"
             android:orientation="horizontal"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/profile_action_bar">
+            >
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="6"
                 android:text="Address"
-                android:textColor="@color/colorPrimaryDark"
+                android:textColor="@color/Dark"
                 android:textSize="20sp"
                 android:textStyle="bold"/>
 
@@ -63,7 +56,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="3"
-                android:textColor="@color/colorAccentMid"
+                android:textColor="@color/Dark"
                 android:textSize="20sp"
                 android:textStyle="bold"/>
         </LinearLayout>
@@ -75,16 +68,14 @@
             android:layout_marginTop="32dp"
             android:layout_marginEnd="16dp"
             android:orientation="horizontal"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/profile_action_bar">
+            >
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="6"
                 android:text="Number of people"
-                android:textColor="@color/colorPrimaryDark"
+                android:textColor="@color/Dark"
                 android:textSize="18sp"
                 android:textStyle="bold"/>
 
@@ -93,7 +84,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="3"
-                android:textColor="@color/colorAccentMid"
+                android:textColor="@color/Dark"
                 android:textSize="20sp"
                 android:textStyle="bold"/>
         </LinearLayout>
@@ -105,16 +96,14 @@
             android:layout_marginTop="32dp"
             android:layout_marginEnd="16dp"
             android:orientation="horizontal"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/profile_action_bar">
+            >
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="6"
                 android:text="Special needs"
-                android:textColor="@color/colorPrimaryDark"
+                android:textColor="@color/Dark"
                 android:textSize="20sp"
                 android:textStyle="bold"/>
 
@@ -123,7 +112,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="3"
-                android:textColor="@color/colorAccentMid"
+                android:textColor="@color/Dark"
                 android:textSize="20sp"
                 android:textStyle="bold"/>
         </LinearLayout>
@@ -145,7 +134,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="6"
             android:text="What we donate"
-            android:textColor="@color/colorAccent"
+            android:textColor="@color/Dark"
             android:textSize="16sp"
             android:textStyle="bold"/>
 
@@ -154,20 +143,20 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="3"
-            android:textColor="@color/colorAccentMid"
+            android:textColor="@color/Dark"
             android:textSize="16sp"
             android:textStyle="bold"/>
     </LinearLayout>
 
     <Button
         android:id="@+id/toDonate"
-        android:background="@drawable/custom_color_accent_dark_button"
+        android:background="@drawable/custom_color_light_purple"
         android:layout_width="217dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="2dp"
         android:layout_marginBottom="50dp"
         android:text="donate"
-        android:textColor="@color/colorPrimaryDark"
+        android:textColor="@color/Dark"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

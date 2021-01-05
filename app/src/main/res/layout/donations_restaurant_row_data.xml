@@ -7,7 +7,7 @@
     android:layout_height="wrap_content"
     android:layout_marginVertical="10dp"
     android:layout_margin="10dp"
-    card_view:cardBackgroundColor="@color/colorPrimaryLight"
+    card_view:cardBackgroundColor="@color/LightLightGreen"
     card_view:cardCornerRadius="4dp">
 
     <RelativeLayout
@@ -19,7 +19,7 @@
             android:id="@+id/lHeader"
             android:layout_width="match_parent"
             android:layout_height="10dp"
-            android:background="@color/colorPrimaryDark"
+            android:background="@color/DarkGreen"
             android:padding="4dp">
         </RelativeLayout>
 
@@ -45,7 +45,7 @@
                     android:layout_weight="6"
                     android:layout_marginHorizontal="5dp"
                     android:text="To:"
-                    android:textColor="@color/colorPrimaryDark"
+                    android:textColor="@color/Dark"
                     android:textSize="16dp"
                     android:textStyle="bold"/>
 
@@ -56,7 +56,7 @@
                     android:layout_weight="3"
                     android:layout_marginHorizontal="5dp"
                     android:text="From"
-                    android:textColor="@color/colorPrimaryDark"
+                    android:textColor="@color/Dark"
                     android:textSize="16dp"/>
             </LinearLayout>
 
@@ -78,7 +78,7 @@
                     android:layout_weight="1"
                     android:layout_marginHorizontal="5dp"
                     android:text="Has donated:"
-                    android:textColor="@color/colorPrimaryDark"
+                    android:textColor="@color/Dark"
                     android:textSize="16dp"
                     android:textStyle="bold"/>
 
@@ -89,7 +89,7 @@
                     android:layout_weight="3"
                     android:layout_marginHorizontal="5dp"
                     android:text="What"
-                    android:textColor="@color/colorPrimaryDark"
+                    android:textColor="@color/Dark"
                     android:textSize="16dp"/>
             </LinearLayout>
 
@@ -111,7 +111,7 @@
                     android:layout_weight="6"
                     android:layout_marginHorizontal="5dp"
                     android:text="Status"
-                    android:textColor="@color/colorPrimaryDark"
+                    android:textColor="@color/Dark"
                     android:textSize="16dp"
                     android:textStyle="bold"/>
 
@@ -122,7 +122,7 @@
                     android:layout_weight="3"
                     android:layout_marginHorizontal="5dp"
                     android:text="Not received"
-                    android:textColor="@color/colorPrimaryDark"
+                    android:textColor="@color/Dark"
                     android:textSize="16dp"/>
             </LinearLayout>
             <LinearLayout
@@ -143,7 +143,7 @@
                     android:layout_weight="6"
                     android:layout_marginHorizontal="5dp"
                     android:text="Date"
-                    android:textColor="@color/colorPrimaryDark"
+                    android:textColor="@color/Dark"
                     android:textSize="16dp"
                     android:textStyle="bold"/>
 
@@ -153,7 +153,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="3"
                     android:layout_marginHorizontal="5dp"
-                    android:textColor="@color/colorPrimaryDark"
+                    android:textColor="@color/Dark"
                     android:textSize="16dp"/>
             </LinearLayout>
 
