@@ -44,6 +44,7 @@ public class OrganisationProfileFragment extends Fragment implements RequestDial
 
         databaseRef.child("Requests").child(timeStamp).child("Number of persons").setValue(receivedNumberOfPersons);
         databaseRef.child("Requests").child(timeStamp).child("Special request").setValue(receivedSpecialRequest);
+        databaseRef.child("Requests").child(timeStamp).child("Received today").setValue("NO");
 
         Toast.makeText(getActivity(), "Request changed", Toast.LENGTH_SHORT).show();
 
