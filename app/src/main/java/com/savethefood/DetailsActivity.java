@@ -36,7 +36,6 @@ public class DetailsActivity extends AppCompatActivity {
     private FirebaseAuth fAuth;
     private DatabaseReference databaseRef;
     private String userUID;
-    private String nameOfUser;
     private String title;
     private String organisationID;
 
@@ -71,8 +70,6 @@ public class DetailsActivity extends AppCompatActivity {
         getDetailsFromFirebase();
         getNameOfRestaurant();
         onDonateButton();
-
-
     }
 
     public void getDetailsFromFirebase(){
