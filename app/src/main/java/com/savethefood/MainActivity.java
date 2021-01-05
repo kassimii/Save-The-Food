@@ -6,6 +6,7 @@ import androidx.fragment.app.Fragment;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 
@@ -34,6 +35,8 @@ public class  MainActivity extends AppCompatActivity {
 
         fAuth = FirebaseAuth.getInstance();
 
+        bottomNavigationView = findViewById(R.id.bottom_navbar);
+
         Intent intent = getIntent();
         int destinationFragment = intent.getIntExtra("DestinationFragment", 0);
         if(intent.getCategories()==null){
@@ -48,6 +51,9 @@ public class  MainActivity extends AppCompatActivity {
                     break;
 
             }
+        }else{
+            getSupportFragmentManager().beginTransaction().replace(R.id.container, new HomeFragment()).commit();
+            bottomNavigationView.setSelectedItemId(R.id.home);
         }
     }
 
@@ -82,7 +88,6 @@ public class  MainActivity extends AppCompatActivity {
     }
 
     public void showNavbar(){
-        bottomNavigationView = findViewById(R.id.bottom_navbar);
         bottomNavigationView.setOnNavigationItemSelectedListener(bottomNavMethod);
     }
 

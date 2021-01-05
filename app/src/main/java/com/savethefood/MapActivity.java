@@ -61,8 +61,6 @@ public class MapActivity extends FragmentActivity implements OnMapReadyCallback 
         timeStamp = new SimpleDateFormat("dd MM yyyy").format(Calendar.getInstance().getTime());
 
         fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this);
-
-
     }
 
 
