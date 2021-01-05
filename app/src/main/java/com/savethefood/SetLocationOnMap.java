@@ -61,6 +61,7 @@ public class SetLocationOnMap extends FragmentActivity implements OnMapReadyCall
                 googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng, 10));//zoom marker
                 googleMap.addMarker(markerOptions);
 
+
                 Intent intent = new Intent(getApplicationContext(), MainActivity.class);
                 intent.putExtra("DestinationFragment",3);
                 startActivity(intent);

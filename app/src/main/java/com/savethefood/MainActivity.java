@@ -47,8 +47,9 @@ public class  MainActivity extends AppCompatActivity {
                     break;
 
                 case 3:
-                    getSupportFragmentManager().beginTransaction().replace(R.id.container, new ProfileFragment()).commit();
+                    getSupportFragmentManager().beginTransaction().replace(R.id.container, new OrganisationProfileFragment()).commit();
                     break;
+
             }
         }
     }
