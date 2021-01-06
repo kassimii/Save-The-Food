@@ -136,7 +136,6 @@ public class MapActivity extends FragmentActivity implements OnMapReadyCallback 
                 i.putExtra("uid", marker.getSnippet());
 
                 startActivity(i);
-                finish();
 
                 return false;
             }
