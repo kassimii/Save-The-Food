@@ -160,7 +160,9 @@ public class Register extends AppCompatActivity {
                             databaseRef.child("Location").child("Latitude").setValue(latitude);
                             databaseRef.child("Location").child("Longitude").setValue(longitude);
 
-                            startActivity(new Intent(getApplicationContext(), MainActivity.class));
+                            Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                            intent.putExtra("DestinationFragment", 1);
+                            startActivity(intent);
                             finish();
 
                         } else {

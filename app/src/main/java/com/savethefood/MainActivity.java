@@ -39,13 +39,20 @@ public class  MainActivity extends AppCompatActivity {
 
         Intent intent = getIntent();
         int destinationFragment = intent.getIntExtra("DestinationFragment", 0);
+        Log.d("JOHN",String.valueOf(intent.getCategories()));
         if(intent.getCategories()==null){
             switch(destinationFragment)
             {
+                //login & register
+                case 1:
+                    getSupportFragmentManager().beginTransaction().replace(R.id.container, new HomeFragment()).commit();
+                    bottomNavigationView.setSelectedItemId(R.id.home);
+                    break;
+                //donation details
                 case 2:
                     getSupportFragmentManager().beginTransaction().replace(R.id.container, new DonationsReceivedFragment()).commit();
                     break;
-
+                //change location
                 case 3:
                     getSupportFragmentManager().beginTransaction().replace(R.id.container, new OrganisationProfileFragment()).commit();
                     break;
