@@ -97,7 +97,6 @@ public class SearchFragment extends Fragment {
                     showDonations();
                     adapter.notifyDataSetChanged();
                 }catch (Exception e){
-                    Toast.makeText(getContext(), e.getMessage().toString(), Toast.LENGTH_SHORT).show();
                 }
             }
 
