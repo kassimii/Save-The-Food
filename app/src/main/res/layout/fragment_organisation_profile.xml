@@ -24,6 +24,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="6"
+            android:fontFamily="@font/anaheim"
             android:text="Name"
             android:drawableStart="@drawable/ic_profile"
             android:textColor="@color/Dark"
@@ -34,6 +35,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="3"
+            android:fontFamily="@font/anaheim"
             android:textColor="@color/Dark"
             android:textSize="24sp" />
     </LinearLayout>
@@ -51,6 +53,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="6"
+            android:fontFamily="@font/anaheim"
             android:text="Address"
             android:drawableStart="@drawable/ic_address"
             android:textColor="@color/Dark"
@@ -61,6 +64,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="3"
+            android:fontFamily="@font/anaheim"
             android:textColor="@color/Dark"
             android:textSize="24sp" />
     </LinearLayout>
@@ -79,20 +83,27 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="6"
+            android:fontFamily="@font/anaheim"
             android:text="Location"
             android:drawableStart="@drawable/ic_location"
             android:textColor="@color/Dark"
             android:textSize="24sp" />
 
         <Button
+            android:id="@+id/changeLocation"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingHorizontal="20dp"
             android:layout_weight="3"
             android:background="@drawable/custom_color_accent_button"
+<<<<<<< Updated upstream
             android:text="Change location"
             android:id="@+id/changeLocation"
             />
+=======
+            android:fontFamily="@font/anaheim"
+            android:paddingHorizontal="20dp"
+            android:text="Change location" />
+>>>>>>> Stashed changes
     </LinearLayout>
 
     <LinearLayout
@@ -110,6 +121,10 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@drawable/custom_color_accent_button"
+<<<<<<< Updated upstream
+=======
+            android:fontFamily="@font/anaheim"
+>>>>>>> Stashed changes
             android:text="Update profile" />
     </LinearLayout>
 
@@ -127,6 +142,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="6"
+            android:fontFamily="@font/anaheim"
             android:text="Today's request"
             android:drawableStart="@drawable/ic_request"
             android:textColor="@color/Dark"
@@ -148,7 +164,12 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="4"
+<<<<<<< Updated upstream
             android:text="No. of persons"
+=======
+            android:fontFamily="@font/anaheim"
+            android:text="Number of persons"
+>>>>>>> Stashed changes
             android:textAlignment="center"
             android:textColor="@color/Dark"
             android:textSize="16sp" />
@@ -158,10 +179,11 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="3"
+            android:fontFamily="@font/anaheim"
             android:text="0"
             android:textAlignment="center"
             android:textColor="@color/Dark"
-            android:textSize="16sp"/>
+            android:textSize="16sp" />
 
     </LinearLayout>
 
@@ -179,6 +201,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="4"
+            android:fontFamily="@font/anaheim"
             android:text="Special requests"
             android:textAlignment="center"
             android:textColor="@color/Dark"
@@ -189,10 +212,11 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="3"
+            android:fontFamily="@font/anaheim"
             android:text=""
             android:textAlignment="center"
             android:textColor="@color/Dark"
-            android:textSize="16sp"/>
+            android:textSize="16sp" />
 
     </LinearLayout>
 
@@ -210,9 +234,10 @@
             android:id="@+id/BChangeTodaysRequest"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@drawable/custom_color_light_purple"
+            android:background="@drawable/custom_color_accent_dark_button"
+            android:fontFamily="@font/anaheim"
             android:text="Change request for today"
-            android:textColor="@color/Light"/>
+            android:textColor="@color/Light" />
 
 
     </LinearLayout>

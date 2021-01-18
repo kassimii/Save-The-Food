@@ -26,9 +26,10 @@
             android:id="@+id/BNewRequest"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@drawable/custom_color_light_purple"
+            android:background="@drawable/custom_color_accent_dark_button"
+            android:fontFamily="@font/anaheim"
             android:text="New Request"
-            android:textColor="@color/Light"/>
+            android:textColor="@color/Light" />
     </LinearLayout>
 
     <ListView

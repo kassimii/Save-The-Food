@@ -26,6 +26,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="6"
+            android:fontFamily="@font/anaheim"
             android:text="Name"
             android:drawableStart="@drawable/ic_profile"
             android:textColor="@color/Dark"
@@ -36,6 +37,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="3"
+            android:fontFamily="@font/anaheim"
             android:textColor="@color/Dark"
             android:textSize="24sp" />
     </LinearLayout>
@@ -57,10 +59,10 @@
             android:id="@+id/BUpdateProfile"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@drawable/custom_color_light_purple"
+            android:background="@drawable/custom_color_accent_dark_button"
+            android:fontFamily="@font/anaheim"
             android:text="Update profile"
-            android:textColor="@color/Light"
-            />
+            android:textColor="@color/Light" />
     </LinearLayout>
 
 
