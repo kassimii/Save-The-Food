@@ -28,7 +28,7 @@
             android:layout_height="match_parent"
             android:background="@drawable/custom_color_light_purple"
             android:text="SEARCH ORGANISATION"
-            android:textColor="@color/Dark"
+            android:textColor="@color/Light"
             />
     </LinearLayout>
 

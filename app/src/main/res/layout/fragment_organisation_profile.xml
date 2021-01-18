@@ -207,7 +207,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@drawable/custom_color_light_purple"
-            android:text="Change request for today" />
+            android:text="Change request for today"
+            android:textColor="@color/Light"/>
 
 
     </LinearLayout>

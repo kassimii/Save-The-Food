@@ -58,7 +58,8 @@
             android:layout_height="wrap_content"
             android:background="@drawable/custom_color_light_purple"
             android:text="Update profile"
-            android:textColor="@color/Dark"/>
+            android:textColor="@color/Light"
+            />
     </LinearLayout>
 
 
