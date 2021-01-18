@@ -33,7 +33,7 @@
         android:fontFamily="@font/anaheim"
         android:hint="Number of persons"
         android:inputType="number"
-        android:textColor="@color/DarkGreen" />
+        android:textColor="@color/Dark" />
 
     <EditText
         android:id="@+id/ESpecialRequest"
@@ -47,7 +47,7 @@
         android:layout_marginEnd="16dp"
         android:fontFamily="@font/anaheim"
         android:hint="Special request for today"
-        android:textColor="@color/DarkGreen" />
+        android:textColor="@color/Dark" />
 
     <LinearLayout
         android:id="@+id/linearLayout2"
