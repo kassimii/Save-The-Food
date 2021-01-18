@@ -79,6 +79,7 @@ public class DonationDetails extends AppCompatActivity {
                 Intent intent = new Intent(getApplicationContext(), MainActivity.class);
                 intent.putExtra("DestinationFragment", 2);
                 startActivity(intent);
+                finish();
             }
         });
     }
