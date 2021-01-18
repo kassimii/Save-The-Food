@@ -130,6 +130,7 @@
                 android:layout_width="50dp"
                 android:layout_height="50dp"
                 android:src="@drawable/donation_sent_apple"
+                android:alpha="0.6"
                 android:layout_below="@id/linearLayout3"
                 android:layout_alignParentRight="true"
                 android:layout_marginRight="20dp"
