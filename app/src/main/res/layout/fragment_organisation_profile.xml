@@ -95,15 +95,9 @@
             android:layout_height="wrap_content"
             android:layout_weight="3"
             android:background="@drawable/custom_color_accent_button"
-<<<<<<< Updated upstream
             android:text="Change location"
-            android:id="@+id/changeLocation"
-            />
-=======
             android:fontFamily="@font/anaheim"
-            android:paddingHorizontal="20dp"
-            android:text="Change location" />
->>>>>>> Stashed changes
+            android:paddingHorizontal="20dp"/>
     </LinearLayout>
 
     <LinearLayout
@@ -121,10 +115,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@drawable/custom_color_accent_button"
-<<<<<<< Updated upstream
-=======
             android:fontFamily="@font/anaheim"
->>>>>>> Stashed changes
             android:text="Update profile" />
     </LinearLayout>
 
@@ -164,12 +155,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="4"
-<<<<<<< Updated upstream
             android:text="No. of persons"
-=======
             android:fontFamily="@font/anaheim"
-            android:text="Number of persons"
->>>>>>> Stashed changes
             android:textAlignment="center"
             android:textColor="@color/Dark"
             android:textSize="16sp" />
@@ -238,10 +225,5 @@
             android:fontFamily="@font/anaheim"
             android:text="Change request for today"
             android:textColor="@color/Light" />
-
-
     </LinearLayout>
-
-
-
 </RelativeLayout>

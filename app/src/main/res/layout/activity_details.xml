@@ -26,7 +26,6 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-<<<<<<< Updated upstream
             android:gravity="center"
             android:orientation="horizontal">
 
@@ -71,18 +70,11 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-<<<<<<< Updated upstream
                 android:layout_weight="1"
                 android:text="Address"
                 android:textColor="@color/Dark"
                 android:textSize="18sp"
-=======
-                android:layout_weight="6"
                 android:fontFamily="@font/anaheim"
-                android:text="Address"
-                android:textColor="@color/Dark"
-                android:textSize="20sp"
->>>>>>> Stashed changes
                 android:textStyle="bold" />
 
             <TextView
@@ -107,14 +99,9 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-<<<<<<< Updated upstream
                 android:layout_weight="1"
                 android:text="No. of people"
-=======
-                android:layout_weight="6"
                 android:fontFamily="@font/anaheim"
-                android:text="Number of people"
->>>>>>> Stashed changes
                 android:textColor="@color/Dark"
                 android:textSize="18sp"
                 android:textStyle="bold" />
@@ -141,18 +128,11 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-<<<<<<< Updated upstream
                 android:layout_weight="1"
                 android:text="Special needs"
-                android:textColor="@color/Dark"
                 android:textSize="18sp"
-=======
-                android:layout_weight="6"
                 android:fontFamily="@font/anaheim"
-                android:text="Special needs"
                 android:textColor="@color/Dark"
-                android:textSize="20sp"
->>>>>>> Stashed changes
                 android:textStyle="bold" />
 
             <TextView
@@ -180,11 +160,7 @@
 
         <TextView
             android:layout_width="match_parent"
-<<<<<<< Updated upstream
             android:layout_height="match_parent"
-=======
-            android:layout_height="wrap_content"
->>>>>>> Stashed changes
             android:layout_marginVertical="5dp"
             android:layout_weight="6"
             android:fontFamily="@font/anaheim"

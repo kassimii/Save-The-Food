@@ -43,13 +43,9 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginHorizontal="5dp"
-<<<<<<< Updated upstream
                     android:drawableStart="@drawable/ic_donation_to"
-=======
                     android:layout_weight="6"
                     android:fontFamily="@font/anaheim"
-                    android:text="To:"
->>>>>>> Stashed changes
                     android:textColor="@color/Dark"
                     android:textSize="16dp"
                     android:textStyle="bold" />
@@ -82,13 +78,9 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginHorizontal="5dp"
-<<<<<<< Updated upstream
                     android:drawableStart="@drawable/ic_donation_info"
-=======
                     android:layout_weight="1"
                     android:fontFamily="@font/anaheim"
-                    android:text="Has donated:"
->>>>>>> Stashed changes
                     android:textColor="@color/Dark"
                     android:textSize="16dp"
                     android:textStyle="bold" />
@@ -121,13 +113,9 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginHorizontal="5dp"
-<<<<<<< Updated upstream
                     android:drawableStart="@drawable/ic_donation_status"
-=======
                     android:layout_weight="6"
                     android:fontFamily="@font/anaheim"
-                    android:text="Status"
->>>>>>> Stashed changes
                     android:textColor="@color/Dark"
                     android:textSize="16dp"
                     android:textStyle="bold" />
@@ -171,13 +159,9 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginHorizontal="5dp"
-<<<<<<< Updated upstream
                     android:drawableStart="@drawable/ic_donation_date"
-=======
                     android:layout_weight="6"
                     android:fontFamily="@font/anaheim"
-                    android:text="Date"
->>>>>>> Stashed changes
                     android:textColor="@color/Dark"
                     android:textSize="16dp"
                     android:textStyle="bold" />
@@ -188,6 +172,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="3"
                     android:layout_marginHorizontal="5dp"
+                    android:fontFamily="@font/anaheim"
                     android:textColor="@color/Dark"
                     android:textSize="16dp"/>
             </LinearLayout>

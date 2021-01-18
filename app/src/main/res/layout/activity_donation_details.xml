@@ -40,13 +40,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="6"
-<<<<<<< Updated upstream
-            android:text=" From"
             android:drawableStart="@drawable/ic_donation_from"
-=======
             android:fontFamily="@font/anaheim"
-            android:text="From"
->>>>>>> Stashed changes
+            android:text=" From"
             android:textColor="@color/Dark"
             android:textSize="24sp" />
 
@@ -76,13 +72,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="6"
-<<<<<<< Updated upstream
             android:text=" What"
             android:drawableStart="@drawable/ic_donation_info"
-=======
             android:fontFamily="@font/anaheim"
-            android:text="What"
->>>>>>> Stashed changes
             android:textColor="@color/Dark"
             android:textSize="24sp" />
 
@@ -112,13 +104,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="6"
-<<<<<<< Updated upstream
             android:text=" When"
             android:drawableStart="@drawable/ic_donation_date"
-=======
             android:fontFamily="@font/anaheim"
-            android:text="When"
->>>>>>> Stashed changes
             android:textColor="@color/Dark"
             android:textSize="24sp" />
 
