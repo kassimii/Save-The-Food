@@ -11,6 +11,18 @@
         android:id="@+id/donation_details_action_bar"
         layout="@layout/donation_details_action_bar" />
 
+
+    <ImageView
+        android:id="@+id/image"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:src="@drawable/restaurant5"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/donation_details_action_bar"
+        app:layout_constraintVertical_bias="0.15" />
+
     <LinearLayout
         android:id="@+id/linearLayout1"
         android:layout_width="match_parent"
@@ -18,17 +30,17 @@
         android:layout_marginStart="16dp"
         android:layout_marginEnd="16dp"
         android:orientation="horizontal"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/donation_details_action_bar"
-        app:layout_constraintVertical_bias="0.3">
+        app:layout_constraintTop_toBottomOf="@+id/image"
+        android:layout_marginTop="50dp">
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="6"
-            android:text="From"
+            android:text=" From"
+            android:drawableStart="@drawable/ic_donation_from"
             android:textColor="@color/Dark"
             android:textSize="24sp" />
 
@@ -57,7 +69,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="6"
-            android:text="What"
+            android:text=" What"
+            android:drawableStart="@drawable/ic_donation_info"
             android:textColor="@color/Dark"
             android:textSize="24sp" />
 
@@ -86,7 +99,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="6"
-            android:text="When"
+            android:text=" When"
+            android:drawableStart="@drawable/ic_donation_date"
             android:textColor="@color/Dark"
             android:textSize="24sp" />
 

@@ -27,6 +27,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="6"
             android:text="Name"
+            android:drawableStart="@drawable/ic_profile"
             android:textColor="@color/Dark"
             android:textSize="24sp" />
 

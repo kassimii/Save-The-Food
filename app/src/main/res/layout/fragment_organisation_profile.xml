@@ -25,6 +25,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="6"
             android:text="Name"
+            android:drawableStart="@drawable/ic_profile"
             android:textColor="@color/Dark"
             android:textSize="24sp" />
 
@@ -51,6 +52,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="6"
             android:text="Address"
+            android:drawableStart="@drawable/ic_address"
             android:textColor="@color/Dark"
             android:textSize="24sp" />
 
@@ -78,6 +80,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="6"
             android:text="Location"
+            android:drawableStart="@drawable/ic_location"
             android:textColor="@color/Dark"
             android:textSize="24sp" />
 
@@ -86,7 +89,7 @@
             android:layout_height="wrap_content"
             android:paddingHorizontal="20dp"
             android:layout_weight="3"
-            android:background="@drawable/custom_color_light_green"
+            android:background="@drawable/custom_color_accent_button"
             android:text="Change location"
             android:id="@+id/changeLocation"
             />
@@ -106,7 +109,7 @@
             android:id="@+id/BUpdateProfile"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@drawable/custom_color_light_green"
+            android:background="@drawable/custom_color_accent_button"
             android:text="Update profile" />
     </LinearLayout>
 
@@ -125,6 +128,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="6"
             android:text="Today's request"
+            android:drawableStart="@drawable/ic_request"
             android:textColor="@color/Dark"
             android:textSize="24sp" />
 
@@ -144,7 +148,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="4"
-            android:text="Number of persons"
+            android:text="No. of persons"
             android:textAlignment="center"
             android:textColor="@color/Dark"
             android:textSize="16sp" />
