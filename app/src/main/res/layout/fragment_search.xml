@@ -7,8 +7,8 @@
     tools:context=".DonationsReceivedFragment">
 
     <include
-        android:id="@+id/donations_received_action_bar"
-        layout="@layout/donations_received_action_bar"
+        android:id="@+id/search_organisation_action_bar"
+        layout="@layout/search_organisation_action_bar"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize" />
 
@@ -19,7 +19,7 @@
         android:layout_marginStart="16dp"
         android:layout_marginTop="32dp"
         android:layout_marginEnd="16dp"
-        android:layout_below="@id/donations_received_action_bar"
+        android:layout_below="@id/search_organisation_action_bar"
         android:orientation="horizontal">
 
         <Button

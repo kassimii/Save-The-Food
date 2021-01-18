@@ -33,6 +33,7 @@
         android:text="Hello, food saver enthusiast! Welcome to the app that makes food saving easier than ever!"
         android:textColor="@color/Dark"
         android:textSize="25dp"
+        android:fontFamily="@font/anaheim"
         android:textStyle="bold"
         android:textAlignment="center"
         app:layout_constraintBottom_toBottomOf="@+id/home_action_bar"
